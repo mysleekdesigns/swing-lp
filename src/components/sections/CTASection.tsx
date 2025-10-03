@@ -42,7 +42,7 @@ export default function CTASection() {
         >
           {/* Primary CTA */}
           <motion.button
-            className="px-8 py-4 rounded-full text-lg font-semibold text-primary-foreground bg-gradient-to-r from-primary to-accent shadow-lg hover:shadow-xl transition-shadow"
+            className="px-8 py-4 rounded-full text-lg font-semibold text-primary-foreground bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
