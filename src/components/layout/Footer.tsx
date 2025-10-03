@@ -34,21 +34,21 @@ const Footer = () => {
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       variants={footerVariants}
-      className="bg-gray-900 border-t border-gray-800"
+      className="bg-card border-t border-border"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 md:py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 sm:gap-8 sm:mb-8">
           {/* Brand Section */}
           <div className="space-y-4">
-            <h3 className="text-white text-lg font-semibold">Swing</h3>
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <h3 className="text-foreground text-lg font-semibold">Swing</h3>
+            <p className="text-muted-foreground text-sm leading-relaxed">
               Connect with like-minded individuals in a safe, respectful community.
             </p>
           </div>
 
           {/* Navigation Links */}
           <div className="space-y-4">
-            <h4 className="text-white text-sm font-semibold uppercase tracking-wider">
+            <h4 className="text-foreground text-sm font-semibold uppercase tracking-wider">
               Navigation
             </h4>
             <ul className="space-y-2">
@@ -56,10 +56,10 @@ const Footer = () => {
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-gray-400 text-sm hover:text-white transition-colors duration-200 relative inline-block group"
+                    className="text-muted-foreground text-sm hover:text-foreground transition-colors duration-200 relative inline-block group"
                   >
                     {link.name}
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-500 group-hover:w-full transition-all duration-300" />
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
                   </a>
                 </li>
               ))}
@@ -68,7 +68,7 @@ const Footer = () => {
 
           {/* Legal & Compliance */}
           <div className="space-y-4">
-            <h4 className="text-white text-sm font-semibold uppercase tracking-wider">
+            <h4 className="text-foreground text-sm font-semibold uppercase tracking-wider">
               Legal & Compliance
             </h4>
             <ul className="space-y-2">
@@ -76,17 +76,17 @@ const Footer = () => {
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-gray-400 text-sm hover:text-white transition-colors duration-200 relative inline-block group"
+                    className="text-muted-foreground text-sm hover:text-foreground transition-colors duration-200 relative inline-block group"
                   >
                     {link.name}
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-500 group-hover:w-full transition-all duration-300" />
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
                   </a>
                 </li>
               ))}
             </ul>
             <div className="space-y-2 pt-2">
-              <p className="text-gray-500 text-xs">Users must be over 18</p>
-              <p className="text-gray-500 text-xs">
+              <p className="text-muted-foreground/80 text-xs">Users must be over 18</p>
+              <p className="text-muted-foreground/80 text-xs">
                 Not containing sexually explicit images
               </p>
             </div>
@@ -99,7 +99,7 @@ const Footer = () => {
             href="https://twitter.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white transition-colors duration-200"
+            className="text-muted-foreground hover:text-foreground transition-colors duration-200"
             aria-label="Twitter"
           >
             <svg
@@ -115,7 +115,7 @@ const Footer = () => {
             href="https://facebook.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white transition-colors duration-200"
+            className="text-muted-foreground hover:text-foreground transition-colors duration-200"
             aria-label="Facebook"
           >
             <svg
@@ -135,7 +135,7 @@ const Footer = () => {
             href="https://instagram.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white transition-colors duration-200"
+            className="text-muted-foreground hover:text-foreground transition-colors duration-200"
             aria-label="Instagram"
           >
             <svg
@@ -154,12 +154,12 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar - Copyright */}
-        <div className="border-t border-gray-800 pt-8">
+        <div className="border-t border-border pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-gray-500 text-sm text-center md:text-left">
+            <p className="text-muted-foreground text-sm text-center md:text-left">
               © 2001-{currentYear} DashBoardHosting, LLC
             </p>
-            <p className="text-gray-600 text-xs text-center md:text-right">
+            <p className="text-muted-foreground/80 text-xs text-center md:text-right">
               All rights reserved.
             </p>
           </div>
