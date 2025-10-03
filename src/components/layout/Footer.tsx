@@ -36,8 +36,8 @@ const Footer = () => {
       variants={footerVariants}
       className=""
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 md:py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 sm:gap-8 sm:mb-8">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-24 py-8 md:py-10 lg:py-12 xl:py-16 2xl:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 md:gap-8 md:mb-8 lg:gap-12 lg:mb-12 xl:gap-16 xl:mb-16">
           {/* Brand Section */}
           <div className="space-y-4">
             <h3 className="text-foreground text-lg font-semibold">Swing</h3>
@@ -94,7 +94,7 @@ const Footer = () => {
         </div>
 
         {/* Social Media Icons (Optional) */}
-        <div className="flex justify-center space-x-4 mb-6 sm:space-x-6 sm:mb-8">
+        <div className="flex justify-center space-x-4 mb-6 md:space-x-6 md:mb-8 lg:mb-10 xl:mb-12">
           <a
             href="https://twitter.com"
             target="_blank"

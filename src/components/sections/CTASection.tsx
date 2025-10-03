@@ -4,9 +4,9 @@ import { motion } from 'framer-motion';
 
 export default function CTASection() {
   return (
-    <section className="relative py-20 sm:py-24 overflow-hidden">
+    <section className="relative py-12 md:py-14 lg:py-16 xl:py-12 2xl:py-16 overflow-hidden">
 
-      <div className="relative max-w-4xl lg:max-w-[80vw] mx-auto px-6 sm:px-8 lg:px-12 text-center">
+      <div className="relative max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-24 text-center">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

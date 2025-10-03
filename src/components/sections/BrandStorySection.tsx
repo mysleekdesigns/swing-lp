@@ -4,10 +4,10 @@ import { motion } from 'framer-motion';
 
 export function BrandStorySection() {
   return (
-    <section className="relative overflow-hidden py-20 sm:py-24 lg:py-28">
+    <section className="relative overflow-hidden py-12 md:py-14 lg:py-16 xl:py-12 2xl:py-16">
       {/* Content Container */}
-      <div className="relative mx-auto max-w-7xl lg:max-w-[80vw] px-6 sm:px-8 lg:px-12">
-        <div className="grid gap-16 lg:grid-cols-2 lg:gap-20">
+      <div className="relative mx-auto max-w-[1600px] px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
+        <div className="grid gap-16 md:gap-20 lg:grid-cols-2 lg:gap-24 xl:gap-32 2xl:gap-40">
           {/* Text Content - Left Column */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -47,20 +47,20 @@ export function BrandStorySection() {
             </div>
 
             {/* Stats Grid - simplified */}
-            <div className="grid grid-cols-3 gap-4 pt-4">
-              <div className="rounded-xl border border-primary/20 bg-primary/5 p-4">
-                <div className="text-2xl font-bold text-primary">25+</div>
-                <div className="text-xs text-muted-foreground">Years</div>
+            <div className="grid grid-cols-3 gap-6">
+              <div className="rounded-xl border border-primary/40 bg-primary/10 p-6 shadow-sm">
+                <div className="text-3xl font-bold text-primary">25+</div>
+                <div className="text-sm text-muted-foreground">Years</div>
               </div>
 
-              <div className="rounded-xl border border-accent/20 bg-accent/5 p-4">
-                <div className="text-2xl font-bold text-accent">#1</div>
-                <div className="text-xs text-muted-foreground">Worldwide</div>
+              <div className="rounded-xl border border-accent/40 bg-accent/10 p-6 shadow-sm">
+                <div className="text-3xl font-bold text-accent">#1</div>
+                <div className="text-sm text-muted-foreground">Worldwide</div>
               </div>
 
-              <div className="rounded-xl border border-secondary/20 bg-secondary/5 p-4">
-                <div className="text-2xl font-bold text-secondary">∞</div>
-                <div className="text-xs text-muted-foreground">Possibilities</div>
+              <div className="rounded-xl border border-secondary/40 bg-secondary/10 p-6 shadow-sm">
+                <div className="text-3xl font-bold text-secondary">∞</div>
+                <div className="text-sm text-muted-foreground">Possibilities</div>
               </div>
             </div>
           </motion.div>

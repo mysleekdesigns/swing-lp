@@ -61,7 +61,7 @@ export function LoginCard() {
         duration: 0.5,
         ease: [0.4, 0, 0.2, 1],
       }}
-      className="w-full max-w-md"
+      className="w-full max-w-lg"
     >
       {/* Glass Morphism Card */}
       <div className="relative overflow-hidden rounded-3xl bg-card border border-border shadow-2xl">

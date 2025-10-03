@@ -8,10 +8,10 @@ export function HeroSection() {
   return (
     <section className="relative flex min-h-screen lg:min-h-0 items-center justify-center overflow-hidden">
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-7xl lg:max-w-[80vw] px-6 py-12 lg:py-14 sm:px-8 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-14 items-center">
+      <div className="relative z-10 mx-auto max-w-[1600px] px-6 py-12 md:px-12 md:py-14 lg:px-16 lg:py-16 xl:px-20 xl:py-12 2xl:px-24 2xl:py-16">
+        <div className="grid lg:grid-cols-2 gap-12 md:gap-16 lg:gap-20 xl:gap-24 2xl:gap-32 items-center">
           {/* Left Column - Hero Content */}
-          <div className="text-center lg:text-left space-y-6 lg:space-y-7">
+          <div className="text-center lg:text-left space-y-6 lg:space-y-7 xl:space-y-8">
             {/* Logo */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -27,7 +27,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight"
             >
               <span className="bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent">
                 Where Desire Finds Its Exquisite New Home
@@ -39,7 +39,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-lg sm:text-xl text-muted-foreground max-w-lg"
+              className="text-base sm:text-lg text-muted-foreground max-w-lg"
             >
               Swinglifestyle.com has served members for nearly 25 years. Now transitioning to Swing.com — the largest swingers website — to ignite connections and fulfill fantasies.
             </motion.p>
