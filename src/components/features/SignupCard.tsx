@@ -377,13 +377,13 @@ export function SignupCard() {
                   className="text-sm text-muted-foreground cursor-pointer leading-relaxed"
                 >
                   I accept the{" "}
-                  <a href="#" className="text-primary hover:text-primary/80 transition-colors">
+                  <Link href="/terms-and-conditions" className="text-primary hover:text-primary/80 transition-colors">
                     Terms and Conditions
-                  </a>{" "}
+                  </Link>{" "}
                   and{" "}
-                  <a href="#" className="text-primary hover:text-primary/80 transition-colors">
+                  <Link href="/privacy-policy" className="text-primary hover:text-primary/80 transition-colors">
                     Privacy Policy
-                  </a>
+                  </Link>
                 </Label>
               </div>
               {errors.acceptTerms && (

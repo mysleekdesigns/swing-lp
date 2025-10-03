@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export function BrandStorySection() {
   return (
-    <section className="relative overflow-hidden py-12 md:py-14 lg:py-16 xl:py-12 2xl:py-16">
+    <section id="brand-story" className="relative overflow-hidden py-12 md:py-14 lg:py-16 xl:py-12 2xl:py-16">
       {/* Content Container */}
       <div className="relative mx-auto max-w-[1600px] px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <div className="grid gap-16 md:gap-20 lg:grid-cols-2 lg:gap-24 xl:gap-32 2xl:gap-40">
@@ -34,11 +34,11 @@ export function BrandStorySection() {
             {/* Story Content - more concise */}
             <div className="space-y-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
               <p className="text-foreground/90">
-                Formerly known as <span className="font-semibold text-primary">SLS.com</span> and <span className="font-semibold text-primary">Swinglifestyle.com</span>, we&apos;ve acquired the Swing.com domain after over two decades of serving our community.
+                Formerly known as <span className="font-semibold text-primary">SLS.com</span> and <span className="font-semibold text-primary">Swinglifestyle.com</span>, we&apos;ve acquired the Swing.com domain after over two decades of serving our community. This marks the <span className="font-semibold text-accent">dawn of a new era</span>.
               </p>
 
               <p>
-                We&apos;re creating an <span className="font-semibold text-accent">intuitive and accessible online sanctuary</span> — an Alternative Lifestyle Dating Community for the Adventurous.
+                We&apos;re creating an <span className="font-semibold text-accent">intuitive and accessible online sanctuary</span> — an Alternative Lifestyle Dating Community for the Adventurous. Experience a <span className="font-semibold text-primary">bold transformation</span> and a <span className="font-semibold text-primary">fresh, unforgettable online experience</span>.
               </p>
 
               <p>

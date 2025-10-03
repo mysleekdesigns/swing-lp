@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import Image from 'next/image';
 
 export default function CTASection() {
@@ -34,17 +35,22 @@ export default function CTASection() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 items-start">
               {/* Primary CTA */}
-              <motion.button
-                className="px-8 py-4 rounded-full text-lg font-semibold text-primary-foreground bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Join Us For Free
-              </motion.button>
+              <Link href="/signup">
+                <motion.button
+                  className="px-8 py-4 rounded-full text-lg font-semibold text-primary-foreground bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Join Us For Free
+                </motion.button>
+              </Link>
 
               {/* Secondary CTA */}
               <motion.button
-                className="px-8 py-4 rounded-full text-lg font-semibold text-foreground border-2 border-border hover:border-primary/50 transition-colors"
+                onClick={() => {
+                  document.getElementById('brand-story')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-8 py-4 rounded-full text-lg font-semibold text-foreground border-2 border-border hover:border-primary/50 transition-colors cursor-pointer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
