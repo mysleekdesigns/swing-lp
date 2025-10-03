@@ -212,12 +212,12 @@ export function LoginCard() {
                   Remember me
                 </Label>
               </div>
-              <a
-                href="#"
+              <Link
+                href="/forgot-password"
                 className="text-sm text-primary hover:text-primary/80 transition-colors duration-200"
               >
                 Forgot Password?
-              </a>
+              </Link>
             </motion.div>
 
             {/* Submit Button */}
