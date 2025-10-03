@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { SignupCard } from '@/components/features/SignupCard';
 import { SwingLogo } from '@/components/ui/SwingLogo';
 import Footer from '@/components/layout/Footer';
@@ -23,7 +24,9 @@ export default function SignupPage() {
                   transition={{ duration: 0.5 }}
                   className="flex justify-center lg:justify-start"
                 >
-                  <SwingLogo className="w-36 h-auto sm:w-44" />
+                  <Link href="/">
+                    <SwingLogo className="w-36 h-auto sm:w-44" />
+                  </Link>
                 </motion.div>
 
                 {/* Main heading */}

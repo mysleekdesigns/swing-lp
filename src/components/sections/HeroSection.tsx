@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { LoginCard } from '@/components/features/LoginCard';
 import { SwingLogo } from '@/components/ui/SwingLogo';
 
@@ -19,7 +20,9 @@ export function HeroSection() {
               transition={{ duration: 0.5 }}
               className="flex justify-center lg:justify-start"
             >
-              <SwingLogo className="w-36 h-auto sm:w-44" />
+              <Link href="/">
+                <SwingLogo className="w-36 h-auto sm:w-44" />
+              </Link>
             </motion.div>
 
             {/* Main heading - simpler, more direct */}
