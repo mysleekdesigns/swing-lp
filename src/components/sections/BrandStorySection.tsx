@@ -4,10 +4,7 @@ import { motion } from 'framer-motion';
 
 export function BrandStorySection() {
   return (
-    <section className="relative overflow-hidden bg-background py-20 sm:py-24 lg:py-28">
-      {/* Simple subtle background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-accent/5 via-background to-background" />
-
+    <section className="relative overflow-hidden py-20 sm:py-24 lg:py-28">
       {/* Content Container */}
       <div className="relative mx-auto max-w-7xl lg:max-w-[80vw] px-6 sm:px-8 lg:px-12">
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-20">
@@ -27,7 +24,7 @@ export function BrandStorySection() {
 
             {/* Heading */}
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
-              <span className="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent">
                 A New Era
               </span>
               <br />
@@ -37,11 +34,11 @@ export function BrandStorySection() {
             {/* Story Content - more concise */}
             <div className="space-y-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
               <p className="text-foreground/90">
-                Formerly known as <span className="font-semibold text-primary">SLS.com</span> and <span className="font-semibold text-primary">Swinglifestyle.com</span>, we've acquired the Swing.com domain after over two decades of serving our community.
+                Formerly known as <span className="font-semibold text-primary">SLS.com</span> and <span className="font-semibold text-primary">Swinglifestyle.com</span>, we&apos;ve acquired the Swing.com domain after over two decades of serving our community.
               </p>
 
               <p>
-                We're creating an <span className="font-semibold text-accent">intuitive and accessible online sanctuary</span> — an Alternative Lifestyle Dating Community for the Adventurous.
+                We&apos;re creating an <span className="font-semibold text-accent">intuitive and accessible online sanctuary</span> — an Alternative Lifestyle Dating Community for the Adventurous.
               </p>
 
               <p>
@@ -101,7 +98,7 @@ export function BrandStorySection() {
                   {/* Quote */}
                   <blockquote className="space-y-3">
                     <p className="text-xl font-semibold text-foreground">
-                      "Where desire finds its exquisite new home"
+                      &ldquo;Where desire finds its exquisite new home&rdquo;
                     </p>
                     <p className="text-sm text-muted-foreground">
                       Experience a new era of online connection in our intuitive and accessible sanctuary for the adventurous.

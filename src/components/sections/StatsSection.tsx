@@ -21,7 +21,7 @@ const stats = [
 
 export function StatsSection() {
   return (
-    <section className="relative py-16 px-6 sm:px-8 lg:px-12 bg-background">
+    <section className="relative py-16 px-6 sm:px-8 lg:px-12">
       {/* Content */}
       <div className="relative max-w-7xl lg:max-w-[80vw] mx-auto">
         {/* Grid */}

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export default function CTASection() {
   return (
-    <section className="relative py-20 sm:py-24 overflow-hidden bg-gradient-to-b from-background to-primary/5">
+    <section className="relative py-20 sm:py-24 overflow-hidden">
 
       <div className="relative max-w-4xl lg:max-w-[80vw] mx-auto px-6 sm:px-8 lg:px-12 text-center">
         {/* Heading */}
@@ -16,7 +16,7 @@ export default function CTASection() {
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
             Ready to Explore Your{' '}
-            <span className="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent">
               Desires?
             </span>
           </h2>
@@ -29,7 +29,7 @@ export default function CTASection() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          Join the world's largest alternative lifestyle dating community. Ignite connections, fulfill fantasies, and experience desire in its exquisite new home.
+          Join the world&apos;s largest alternative lifestyle dating community. Ignite connections, fulfill fantasies, and experience desire in its exquisite new home.
         </motion.p>
 
         {/* CTA Buttons - cleaner */}
@@ -42,7 +42,7 @@ export default function CTASection() {
         >
           {/* Primary CTA */}
           <motion.button
-            className="px-8 py-4 rounded-full text-lg font-semibold text-primary-foreground bg-gradient-to-r from-primary via-accent to-secondary shadow-lg hover:shadow-xl transition-shadow"
+            className="px-8 py-4 rounded-full text-lg font-semibold text-primary-foreground bg-gradient-to-r from-primary to-accent shadow-lg hover:shadow-xl transition-shadow"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
