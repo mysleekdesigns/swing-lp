@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import Link from "next/link"
 import { motion } from "framer-motion"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -426,12 +427,12 @@ export function SignupCard() {
           >
             <p className="text-sm text-muted-foreground">
               Already have an account?{" "}
-              <a
+              <Link
                 href="/"
                 className="text-primary hover:text-primary/80 font-semibold transition-colors duration-200"
               >
                 Sign in
-              </a>
+              </Link>
             </p>
           </motion.div>
         </div>

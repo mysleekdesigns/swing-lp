@@ -20,7 +20,7 @@ const Footer = () => {
   const navigationLinks = [
     { name: 'About', href: '/about' },
     { name: 'Privacy Policy', href: '/privacy' },
-    { name: 'Terms of Service', href: '/terms' },
+    { name: 'Terms & Conditions', href: '/terms-and-conditions' },
     { name: 'Contact', href: '/contact' },
   ];
 
