@@ -5,11 +5,13 @@ import { StatsSection } from '@/components/sections/StatsSection';
 import { BrandStorySection } from '@/components/sections/BrandStorySection';
 import CTASection from '@/components/sections/CTASection';
 import Footer from '@/components/layout/Footer';
+import { Starfield } from '@/components/ui/Starfield';
 
 export default function Home() {
   return (
     <>
-      <main className="relative min-h-screen">
+      <Starfield />
+      <main className="relative min-h-screen z-10">
         <HeroSection />
         <StatsSection />
         <BrandStorySection />
