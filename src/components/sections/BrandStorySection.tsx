@@ -24,7 +24,7 @@ export function BrandStorySection() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-gradient-to-b from-background via-card to-background py-24 sm:py-32 lg:py-40"
+      className="relative overflow-hidden bg-gradient-to-b from-background via-card to-background py-12 sm:py-16 md:py-20 lg:py-24"
     >
       {/* Decorative floating geometric shapes */}
       <div className="absolute inset-0 overflow-hidden">
@@ -75,7 +75,7 @@ export function BrandStorySection() {
       </div>
 
       {/* Content Container */}
-      <div className="relative mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-12">
         <motion.div
           ref={contentRef as any}
           variants={staggerContainer}
@@ -97,7 +97,7 @@ export function BrandStorySection() {
             {/* Heading */}
             <motion.h2
               variants={fadeInUp}
-              className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl"
+              className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl"
             >
               <span className="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
                 The Evolution
@@ -107,7 +107,7 @@ export function BrandStorySection() {
             </motion.h2>
 
             {/* Story Content */}
-            <motion.div variants={fadeInUp} className="space-y-6 text-lg leading-relaxed text-muted-foreground">
+            <motion.div variants={fadeInUp} className="space-y-4 text-base leading-relaxed text-muted-foreground sm:space-y-6 sm:text-lg">
               <p className="text-foreground/90">
                 For over <span className="font-semibold text-primary">25 years</span>, we&apos;ve been the heartbeat of the alternative lifestyle community. What began as SwingLifestyle.com has evolved into something extraordinary—<span className="font-semibold text-accent">Swing.com</span>.
               </p>
@@ -130,21 +130,21 @@ export function BrandStorySection() {
             {/* Stats Grid */}
             <motion.div
               variants={fadeInUp}
-              className="grid grid-cols-3 gap-4 pt-4"
+              className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-4 sm:gap-4"
             >
-              <div className="group rounded-2xl border border-primary/20 bg-primary/5 p-4 backdrop-blur-sm transition-all hover:border-primary/40 hover:bg-primary/10">
-                <div className="text-3xl font-bold text-primary">25+</div>
-                <div className="text-sm text-muted-foreground">Years Strong</div>
+              <div className="group rounded-2xl border border-primary/20 bg-primary/5 p-3 backdrop-blur-sm transition-all hover:border-primary/40 hover:bg-primary/10 sm:p-4">
+                <div className="text-2xl font-bold text-primary sm:text-3xl">25+</div>
+                <div className="text-xs text-muted-foreground sm:text-sm">Years Strong</div>
               </div>
 
-              <div className="group rounded-2xl border border-accent/20 bg-accent/5 p-4 backdrop-blur-sm transition-all hover:border-accent/40 hover:bg-accent/10">
-                <div className="text-3xl font-bold text-accent">#1</div>
-                <div className="text-sm text-muted-foreground">In the World</div>
+              <div className="group rounded-2xl border border-accent/20 bg-accent/5 p-3 backdrop-blur-sm transition-all hover:border-accent/40 hover:bg-accent/10 sm:p-4">
+                <div className="text-2xl font-bold text-accent sm:text-3xl">#1</div>
+                <div className="text-xs text-muted-foreground sm:text-sm">In the World</div>
               </div>
 
-              <div className="group rounded-2xl border border-secondary/20 bg-secondary/5 p-4 backdrop-blur-sm transition-all hover:border-secondary/40 hover:bg-secondary/10">
-                <div className="text-3xl font-bold text-secondary">∞</div>
-                <div className="text-sm text-muted-foreground">Possibilities</div>
+              <div className="group rounded-2xl border border-secondary/20 bg-secondary/5 p-3 backdrop-blur-sm transition-all hover:border-secondary/40 hover:bg-secondary/10 sm:p-4 col-span-2 sm:col-span-1">
+                <div className="text-2xl font-bold text-secondary sm:text-3xl">∞</div>
+                <div className="text-xs text-muted-foreground sm:text-sm">Possibilities</div>
               </div>
             </motion.div>
           </motion.div>
@@ -194,11 +194,11 @@ export function BrandStorySection() {
                   </motion.div>
 
                   {/* Quote */}
-                  <blockquote className="space-y-4">
-                    <p className="text-2xl font-semibold leading-tight text-foreground">
+                  <blockquote className="space-y-3 sm:space-y-4">
+                    <p className="text-xl font-semibold leading-tight text-foreground sm:text-2xl">
                       &ldquo;Where adventurous individuals discover their tribe&rdquo;
                     </p>
-                    <p className="text-base text-muted-foreground">
+                    <p className="text-sm text-muted-foreground sm:text-base">
                       Join a community that celebrates authenticity, exploration, and meaningful connections in the alternative lifestyle dating world.
                     </p>
                   </blockquote>

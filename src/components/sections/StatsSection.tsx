@@ -21,7 +21,7 @@ const stats = [
 
 export function StatsSection() {
   return (
-    <section className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section className="relative py-12 px-4 sm:py-16 sm:px-6 md:py-20 lg:px-8 overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-purple-900/20 to-gray-900" />
 
@@ -34,7 +34,7 @@ export function StatsSection() {
       {/* Content */}
       <div className="relative max-w-7xl mx-auto">
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {stats.map((stat, index) => (
             <StatCard
               key={stat.label}

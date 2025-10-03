@@ -8,7 +8,7 @@ export default function CTASection() {
   const [isSecondaryHovered, setIsSecondaryHovered] = useState(false);
 
   return (
-    <section className="relative py-24 overflow-hidden">
+    <section className="relative py-12 sm:py-16 md:py-20 overflow-hidden">
       {/* Background with gradient and blur effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-pink-900/20 to-red-900/20" />
       <div className="absolute inset-0 backdrop-blur-3xl" />
@@ -47,7 +47,7 @@ export default function CTASection() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
             Ready to Explore Your{' '}
             <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent">
               Desires?
@@ -56,7 +56,7 @@ export default function CTASection() {
         </motion.div>
 
         <motion.p
-          className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto"
+          className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 sm:mb-10 md:mb-12 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -75,7 +75,7 @@ export default function CTASection() {
         >
           {/* Primary CTA - Join Us For Free */}
           <motion.button
-            className="relative group px-8 py-4 rounded-full text-lg font-semibold text-white overflow-hidden"
+            className="relative group px-7 py-3.5 sm:px-8 sm:py-4 rounded-full text-base sm:text-lg font-semibold text-white overflow-hidden"
             onHoverStart={() => setIsPrimaryHovered(true)}
             onHoverEnd={() => setIsPrimaryHovered(false)}
             whileHover={{
@@ -164,7 +164,7 @@ export default function CTASection() {
 
           {/* Secondary CTA - Find Out More */}
           <motion.button
-            className="relative group px-8 py-4 rounded-full text-lg font-semibold text-white overflow-hidden border-2 border-white/30"
+            className="relative group px-7 py-3.5 sm:px-8 sm:py-4 rounded-full text-base sm:text-lg font-semibold text-white overflow-hidden border-2 border-white/30"
             onHoverStart={() => setIsSecondaryHovered(true)}
             onHoverEnd={() => setIsSecondaryHovered(false)}
             whileHover={{
@@ -236,7 +236,7 @@ export default function CTASection() {
 
         {/* Trust indicators */}
         <motion.div
-          className="mt-12 flex flex-wrap justify-center items-center gap-8 text-sm text-gray-400"
+          className="mt-8 flex flex-wrap justify-center items-center gap-4 text-xs text-gray-400 sm:mt-10 sm:gap-6 sm:text-sm md:mt-12 md:gap-8"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-100px" }}

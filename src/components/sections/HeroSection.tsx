@@ -1,6 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { LoginCard } from '@/components/features/LoginCard';
+import { SwingLogo } from '@/components/ui/SwingLogo';
 
 export function HeroSection() {
   return (
@@ -46,126 +48,124 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-7xl px-6 py-24 text-center sm:px-8 lg:px-12">
-        {/* Tagline badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="mb-8 inline-block"
-        >
-          <div className="rounded-full border border-primary/30 bg-primary/10 px-6 py-2 backdrop-blur-sm">
-            <span className="text-sm font-medium text-primary">
-              Formerly SwingLifestyle.com
-            </span>
-          </div>
-        </motion.div>
-
-        {/* Main heading with animated gradient text */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-          className="mb-8 text-5xl font-bold leading-tight tracking-tight sm:text-6xl lg:text-7xl xl:text-8xl"
-        >
-          <span className="inline-block">Where Desire Finds</span>
-          <br />
-          <span className="relative inline-block">
-            <motion.span
-              className="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent"
-              animate={{
-                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: 'linear',
-              }}
-              style={{
-                backgroundSize: '200% 200%',
-              }}
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:px-12 lg:py-24">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
+          {/* Left Column - Hero Content */}
+          <div className="text-center lg:text-left">
+            {/* Logo - mobile centered, desktop left */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1, ease: 'easeOut' }}
+              className="mb-6 sm:mb-8 flex justify-center lg:justify-start"
             >
-              Its Exquisite New Home
-            </motion.span>
+              <SwingLogo className="w-32 h-auto sm:w-40 md:w-48" />
+            </motion.div>
+
+            {/* Main heading with animated gradient text */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+              className="mb-6 text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl"
+            >
+              <span className="inline-block">Where Desire Finds</span>
+              <br />
+              <span className="relative inline-block">
+                <motion.span
+                  className="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent"
+                  animate={{
+                    backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: 'linear',
+                  }}
+                  style={{
+                    backgroundSize: '200% 200%',
+                  }}
+                >
+                  Its Exquisite New Home
+                </motion.span>
+                <motion.div
+                  className="absolute -inset-4 -z-10 rounded-2xl bg-gradient-to-r from-primary/20 via-accent/20 to-secondary/20 blur-2xl"
+                  animate={{
+                    opacity: [0.5, 0.8, 0.5],
+                    scale: [1, 1.05, 1],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                />
+              </span>
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
+              className="mb-8 text-base leading-relaxed text-muted-foreground sm:text-lg md:text-xl"
+            >
+              Welcome to Swing.com, the reimagined destination where curiosity meets connection.
+              Experience a sophisticated platform designed for those who dare to explore their desires
+              in an elegant, secure, and welcoming environment.
+            </motion.p>
+
+            {/* CTA Button */}
             <motion.div
-              className="absolute -inset-4 -z-10 rounded-2xl bg-gradient-to-r from-primary/20 via-accent/20 to-secondary/20 blur-2xl"
-              animate={{
-                opacity: [0.5, 0.8, 0.5],
-                scale: [1, 1.05, 1],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-            />
-          </span>
-        </motion.h1>
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
+              className="flex flex-col items-center lg:items-start justify-center gap-4 sm:flex-row sm:gap-6"
+            >
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="group relative overflow-hidden rounded-full bg-gradient-to-r from-primary via-accent to-secondary px-8 py-3.5 text-base font-semibold text-primary-foreground shadow-lg transition-all hover:shadow-xl hover:shadow-primary/50 sm:px-10 sm:py-4 sm:text-lg"
+              >
+                <span className="relative z-10">Join the Community</span>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-secondary via-accent to-primary"
+                  initial={{ x: '100%' }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </motion.button>
+            </motion.div>
 
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-          className="mx-auto mb-12 max-w-3xl text-lg leading-relaxed text-muted-foreground sm:text-xl lg:text-2xl"
-        >
-          Welcome to Swing.com, the reimagined destination where curiosity meets connection.
-          Experience a sophisticated platform designed for those who dare to explore their desires
-          in an elegant, secure, and welcoming environment.
-        </motion.p>
-
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
-          className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative overflow-hidden rounded-full bg-gradient-to-r from-primary via-accent to-secondary px-10 py-4 text-lg font-semibold text-primary-foreground shadow-lg transition-all hover:shadow-xl hover:shadow-primary/50"
-          >
-            <span className="relative z-10">Join the Community</span>
+            {/* Decorative elements */}
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-secondary via-accent to-primary"
-              initial={{ x: '100%' }}
-              whileHover={{ x: 0 }}
-              transition={{ duration: 0.3 }}
-            />
-          </motion.button>
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.8 }}
+              className="mt-8 flex items-center justify-center lg:justify-start gap-4 text-xs text-muted-foreground flex-wrap sm:gap-6 sm:text-sm"
+            >
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+                <span>Secure & Private</span>
+              </div>
+              <div className="h-4 w-px bg-border" />
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-accent animate-pulse" />
+                <span>Verified Members</span>
+              </div>
+              <div className="h-4 w-px bg-border" />
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-secondary animate-pulse" />
+                <span>Trusted Since 2001</span>
+              </div>
+            </motion.div>
+          </div>
 
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="rounded-full border-2 border-primary/50 bg-background/50 px-10 py-4 text-lg font-semibold text-foreground backdrop-blur-sm transition-all hover:border-primary hover:bg-primary/10"
-          >
-            Explore Features
-          </motion.button>
-        </motion.div>
-
-        {/* Decorative elements */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="mt-24 flex items-center justify-center gap-8 text-sm text-muted-foreground"
-        >
-          <div className="flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-            <span>Secure & Private</span>
+          {/* Right Column - Login Form */}
+          <div className="flex justify-center lg:justify-end">
+            <LoginCard />
           </div>
-          <div className="h-4 w-px bg-border" />
-          <div className="flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-            <span>Verified Members</span>
-          </div>
-          <div className="h-4 w-px bg-border" />
-          <div className="flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-secondary animate-pulse" />
-            <span>Trusted Since 2001</span>
-          </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Bottom gradient fade */}

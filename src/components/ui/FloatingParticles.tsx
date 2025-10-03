@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useMemo } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Particle {
   id: number;
@@ -12,10 +12,14 @@ interface Particle {
   delay: number;
   opacity: number;
   color: string;
+  animateX: number[];
+  animateY: number[];
 }
 
 const FloatingParticles = () => {
-  const particles = useMemo<Particle[]>(() => {
+  const [particles, setParticles] = useState<Particle[]>([]);
+
+  useEffect(() => {
     const colors = [
       'rgba(168, 85, 247, 0.4)', // purple-500
       'rgba(147, 51, 234, 0.4)', // purple-600
@@ -24,17 +28,33 @@ const FloatingParticles = () => {
       'rgba(196, 181, 253, 0.3)', // purple-300
     ];
 
-    return Array.from({ length: 25 }, (_, i) => ({
-      id: i,
-      size: Math.random() * 16 + 4, // 4px to 20px
-      initialX: Math.random() * 100, // 0% to 100% of viewport width
-      initialY: Math.random() * 100, // 0% to 100% of viewport height
-      duration: Math.random() * 20 + 15, // 15s to 35s
-      delay: Math.random() * 5, // 0s to 5s delay
-      opacity: Math.random() * 0.4 + 0.2, // 0.2 to 0.6
-      color: colors[Math.floor(Math.random() * colors.length)],
-    }));
+    setParticles(
+      Array.from({ length: 25 }, (_, i) => ({
+        id: i,
+        size: Math.random() * 16 + 4, // 4px to 20px
+        initialX: Math.random() * 100, // 0% to 100% of viewport width
+        initialY: Math.random() * 100, // 0% to 100% of viewport height
+        duration: Math.random() * 20 + 15, // 15s to 35s
+        delay: Math.random() * 5, // 0s to 5s delay
+        opacity: Math.random() * 0.4 + 0.2, // 0.2 to 0.6
+        color: colors[Math.floor(Math.random() * colors.length)],
+        animateX: [
+          0,
+          Math.random() * 100 - 50, // -50px to 50px
+          Math.random() * 100 - 50,
+          0,
+        ],
+        animateY: [
+          0,
+          Math.random() * 100 - 50, // -50px to 50px
+          Math.random() * 100 - 50,
+          0,
+        ],
+      }))
+    );
   }, []);
+
+  if (particles.length === 0) return null;
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 0 }}>
@@ -56,18 +76,8 @@ const FloatingParticles = () => {
             opacity: 0,
           }}
           animate={{
-            x: [
-              0,
-              Math.random() * 100 - 50, // -50px to 50px
-              Math.random() * 100 - 50,
-              0,
-            ],
-            y: [
-              0,
-              Math.random() * 100 - 50, // -50px to 50px
-              Math.random() * 100 - 50,
-              0,
-            ],
+            x: particle.animateX,
+            y: particle.animateY,
             opacity: [
               0,
               particle.opacity,

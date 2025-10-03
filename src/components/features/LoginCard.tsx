@@ -64,19 +64,19 @@ export function LoginCard() {
       className="w-full max-w-md"
     >
       {/* Glass Morphism Card */}
-      <div className="relative overflow-hidden rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl">
+      <div className="relative overflow-hidden rounded-3xl bg-card border border-border shadow-2xl">
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-blue-500/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/10" />
 
         {/* Card Content */}
-        <div className="relative p-8 sm:p-10">
+        <div className="relative p-6 sm:p-8 md:p-10">
           {/* Header */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-6 sm:mb-8">
             <motion.h2
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"
+              className="text-2xl font-bold text-foreground sm:text-3xl"
             >
               Welcome Back
             </motion.h2>
@@ -84,25 +84,25 @@ export function LoginCard() {
               initial={{ y: -10, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="text-sm text-gray-300 mt-2"
+              className="text-sm text-muted-foreground mt-2"
             >
               Sign in to continue to your account
             </motion.p>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
             {/* Username Field */}
             <motion.div
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
             >
-              <Label htmlFor="username" className="text-gray-200 mb-2 block">
+              <Label htmlFor="username" className="text-foreground mb-2 block">
                 Username
               </Label>
               <div className="relative">
-                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                   <Mail className="w-5 h-5" />
                 </div>
                 <motion.div
@@ -124,8 +124,8 @@ export function LoginCard() {
                     }}
                     onFocus={() => setFocusedField("username")}
                     onBlur={() => setFocusedField(null)}
-                    className={`pl-11 bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-purple-400/50 focus:ring-purple-400/20 transition-all duration-300 ${
-                      errors.username ? "border-red-500/50" : ""
+                    className={`pl-11 bg-background border-input text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-ring transition-all duration-300 ${
+                      errors.username ? "border-destructive" : ""
                     }`}
                   />
                 </motion.div>
@@ -134,7 +134,7 @@ export function LoginCard() {
                 <motion.p
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="text-red-400 text-xs mt-1.5 ml-1"
+                  className="text-destructive text-xs mt-1.5 ml-1"
                 >
                   {errors.username}
                 </motion.p>
@@ -147,11 +147,11 @@ export function LoginCard() {
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
-              <Label htmlFor="password" className="text-gray-200 mb-2 block">
+              <Label htmlFor="password" className="text-foreground mb-2 block">
                 Password
               </Label>
               <div className="relative">
-                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                   <Lock className="w-5 h-5" />
                 </div>
                 <motion.div
@@ -173,8 +173,8 @@ export function LoginCard() {
                     }}
                     onFocus={() => setFocusedField("password")}
                     onBlur={() => setFocusedField(null)}
-                    className={`pl-11 bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-purple-400/50 focus:ring-purple-400/20 transition-all duration-300 ${
-                      errors.password ? "border-red-500/50" : ""
+                    className={`pl-11 bg-background border-input text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-ring transition-all duration-300 ${
+                      errors.password ? "border-destructive" : ""
                     }`}
                   />
                 </motion.div>
@@ -183,7 +183,7 @@ export function LoginCard() {
                 <motion.p
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="text-red-400 text-xs mt-1.5 ml-1"
+                  className="text-destructive text-xs mt-1.5 ml-1"
                 >
                   {errors.password}
                 </motion.p>
@@ -202,18 +202,18 @@ export function LoginCard() {
                   id="remember"
                   checked={rememberMe}
                   onCheckedChange={(checked) => setRememberMe(checked as boolean)}
-                  className="border-white/20 data-[state=checked]:bg-purple-500 data-[state=checked]:border-purple-500"
+                  className="border-input data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                 />
                 <Label
                   htmlFor="remember"
-                  className="text-sm text-gray-300 cursor-pointer"
+                  className="text-sm text-muted-foreground cursor-pointer"
                 >
                   Remember me
                 </Label>
               </div>
               <a
                 href="#"
-                className="text-sm text-purple-400 hover:text-purple-300 transition-colors duration-200"
+                className="text-sm text-primary hover:text-primary/80 transition-colors duration-200"
               >
                 Forgot Password?
               </a>
@@ -230,12 +230,12 @@ export function LoginCard() {
                 disabled={isSubmitting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full py-3 px-4 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-semibold rounded-xl shadow-lg shadow-purple-500/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
+                className="w-full py-3 px-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl shadow-lg shadow-primary/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
               >
                 <span className="relative z-10">
                   {isSubmitting ? "Signing in..." : "Sign In"}
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </motion.button>
             </motion.div>
           </form>
@@ -247,11 +247,11 @@ export function LoginCard() {
             transition={{ delay: 0.8 }}
             className="mt-6 text-center"
           >
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-muted-foreground">
               Don&apos;t have an account?{" "}
               <a
                 href="#"
-                className="text-purple-400 hover:text-purple-300 font-semibold transition-colors duration-200"
+                className="text-primary hover:text-primary/80 font-semibold transition-colors duration-200"
               >
                 Sign up
               </a>
@@ -260,8 +260,8 @@ export function LoginCard() {
         </div>
 
         {/* Decorative Elements */}
-        <div className="absolute -top-24 -right-24 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl" />
-        <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-blue-500/20 rounded-full blur-3xl" />
+        <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-accent/20 rounded-full blur-3xl" />
       </div>
     </motion.div>
   )
