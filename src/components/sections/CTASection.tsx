@@ -1,53 +1,20 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 
 export default function CTASection() {
-  const [isPrimaryHovered, setIsPrimaryHovered] = useState(false);
-  const [isSecondaryHovered, setIsSecondaryHovered] = useState(false);
-
   return (
-    <section className="relative py-12 sm:py-16 md:py-20 overflow-hidden">
-      {/* Background with gradient and blur effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/20 to-secondary/20" />
-      <div className="absolute inset-0 backdrop-blur-3xl" />
+    <section className="relative py-20 sm:py-24 overflow-hidden bg-gradient-to-b from-background to-primary/5">
 
-      {/* Animated background orbs */}
-      <motion.div
-        className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/30 rounded-full blur-3xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/30 rounded-full blur-3xl"
-        animate={{
-          scale: [1.2, 1, 1.2],
-          opacity: [0.5, 0.3, 0.5],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Staggered entrance animations */}
+      <div className="relative max-w-4xl lg:max-w-[80vw] mx-auto px-6 sm:px-8 lg:px-12 text-center">
+        {/* Heading */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
             Ready to Explore Your{' '}
             <span className="bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
               Desires?
@@ -56,190 +23,49 @@ export default function CTASection() {
         </motion.div>
 
         <motion.p
-          className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 sm:mb-10 md:mb-12 max-w-2xl mx-auto"
-          initial={{ opacity: 0, y: 30 }}
+          className="text-lg sm:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
         >
-          Join our vibrant community of open-minded individuals and discover meaningful connections in a safe, welcoming environment.
+          Join the world's largest alternative lifestyle dating community. Ignite connections, fulfill fantasies, and experience desire in its exquisite new home.
         </motion.p>
 
-        {/* CTA Buttons */}
+        {/* CTA Buttons - cleaner */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-6 justify-center items-center"
-          initial={{ opacity: 0, y: 30 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
-          {/* Primary CTA - Join Us For Free */}
+          {/* Primary CTA */}
           <motion.button
-            className="relative group px-7 py-3.5 sm:px-8 sm:py-4 rounded-full text-base sm:text-lg font-semibold text-primary-foreground overflow-hidden"
-            onHoverStart={() => setIsPrimaryHovered(true)}
-            onHoverEnd={() => setIsPrimaryHovered(false)}
-            whileHover={{
-              scale: 1.05,
-              y: -5,
-            }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            className="px-8 py-4 rounded-full text-lg font-semibold text-primary-foreground bg-gradient-to-r from-primary via-accent to-secondary shadow-lg hover:shadow-xl transition-shadow"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
-            {/* Animated gradient shimmer background */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-secondary"
-              animate={{
-                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              style={{
-                backgroundSize: '200% 200%',
-              }}
-            />
-
-            {/* Shimmer overlay effect */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-              animate={{
-                x: ['-100%', '200%'],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-                repeatDelay: 1,
-              }}
-            />
-
-            {/* Continuous subtle pulse animation */}
-            <motion.div
-              className="absolute inset-0 bg-white/20 rounded-full"
-              animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0, 0.5, 0],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-
-            {/* Hover glow effect */}
-            <motion.div
-              className="absolute inset-0 rounded-full shadow-lg"
-              animate={{
-                boxShadow: isPrimaryHovered
-                  ? '0 20px 60px rgba(219, 39, 119, 0.6), 0 0 40px rgba(168, 85, 247, 0.4)'
-                  : '0 10px 30px rgba(219, 39, 119, 0.3)',
-              }}
-              transition={{ duration: 0.3 }}
-            />
-
-            <span className="relative z-10 flex items-center gap-2">
-              Join Us For Free
-              <motion.svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                animate={{
-                  x: isPrimaryHovered ? 5 : 0,
-                }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </motion.svg>
-            </span>
+            Join Us For Free
           </motion.button>
 
-          {/* Secondary CTA - Find Out More */}
+          {/* Secondary CTA */}
           <motion.button
-            className="relative group px-7 py-3.5 sm:px-8 sm:py-4 rounded-full text-base sm:text-lg font-semibold text-foreground overflow-hidden border-2 border-border"
-            onHoverStart={() => setIsSecondaryHovered(true)}
-            onHoverEnd={() => setIsSecondaryHovered(false)}
-            whileHover={{
-              scale: 1.05,
-              y: -5,
-            }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            className="px-8 py-4 rounded-full text-lg font-semibold text-foreground border-2 border-border hover:border-primary/50 transition-colors"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
-            {/* Background fill on hover */}
-            <motion.div
-              className="absolute inset-0 bg-accent/10"
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{
-                scale: isSecondaryHovered ? 1 : 0,
-                opacity: isSecondaryHovered ? 1 : 0,
-              }}
-              transition={{ duration: 0.3 }}
-            />
-
-            {/* Subtle pulse animation */}
-            <motion.div
-              className="absolute inset-0 border-2 border-primary/50 rounded-full"
-              animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0, 0.3, 0],
-              }}
-              transition={{
-                duration: 2.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-
-            {/* Hover shadow effect */}
-            <motion.div
-              className="absolute inset-0 rounded-full"
-              animate={{
-                boxShadow: isSecondaryHovered
-                  ? '0 15px 40px hsl(var(--primary) / 0.2)'
-                  : '0 5px 15px hsl(var(--primary) / 0.1)',
-              }}
-              transition={{ duration: 0.3 }}
-            />
-
-            <span className="relative z-10 flex items-center gap-2">
-              Find Out More
-              <motion.svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                animate={{
-                  rotate: isSecondaryHovered ? 360 : 0,
-                }}
-                transition={{ duration: 0.5 }}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </motion.svg>
-            </span>
+            Find Out More
           </motion.button>
         </motion.div>
 
         {/* Trust indicators */}
         <motion.div
-          className="mt-8 flex flex-wrap justify-center items-center gap-4 text-xs text-muted-foreground sm:mt-10 sm:gap-6 sm:text-sm md:mt-12 md:gap-8"
+          className="mt-10 flex flex-wrap justify-center items-center gap-6 text-sm text-muted-foreground"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
         >
           <div className="flex items-center gap-2">
             <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
