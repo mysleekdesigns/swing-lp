@@ -13,8 +13,6 @@ export function Starfield() {
       <div className="stars stars-large"></div>
       {/* XL stars - extreme foreground */}
       <div className="stars stars-xl"></div>
-      {/* Gradient fade overlay */}
-      <div className="starfield-fade"></div>
     </div>
   );
 }

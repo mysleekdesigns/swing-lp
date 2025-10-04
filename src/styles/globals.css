@@ -167,14 +167,13 @@
   }
 
   body {
-    background-color: var(--color-background);
     color: var(--color-foreground);
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
   /* Starfield background */
   .starfield-container {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
