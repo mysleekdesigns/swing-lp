@@ -58,10 +58,7 @@ export function ForgotPasswordCard() {
         className="w-full max-w-lg"
       >
         {/* Success State Card */}
-        <div className="relative overflow-hidden rounded-3xl bg-card border border-border shadow-2xl">
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/10" />
-
+        <div className="relative overflow-hidden rounded-3xl bg-primary/5 backdrop-blur-xl border border-primary/20 shadow-2xl">
           {/* Card Content */}
           <div className="relative p-6 sm:p-8 md:p-10">
             {/* Success Icon */}
@@ -157,10 +154,6 @@ export function ForgotPasswordCard() {
               </p>
             </motion.div>
           </div>
-
-          {/* Decorative Elements */}
-          <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl" />
-          <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-accent/20 rounded-full blur-3xl" />
         </div>
       </motion.div>
     )
@@ -177,10 +170,7 @@ export function ForgotPasswordCard() {
       className="w-full max-w-lg"
     >
       {/* Glass Morphism Card */}
-      <div className="relative overflow-hidden rounded-3xl bg-card border border-border shadow-2xl">
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/10" />
-
+      <div className="relative overflow-hidden rounded-3xl bg-primary/5 backdrop-blur-xl border border-primary/20 shadow-2xl">
         {/* Card Content */}
         <div className="relative p-6 sm:p-8 md:p-10">
           {/* Header */}
@@ -291,10 +281,6 @@ export function ForgotPasswordCard() {
             </Link>
           </motion.div>
         </div>
-
-        {/* Decorative Elements */}
-        <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-accent/20 rounded-full blur-3xl" />
       </div>
     </motion.div>
   )

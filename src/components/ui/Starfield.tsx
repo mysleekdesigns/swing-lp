@@ -830,7 +830,7 @@ function Constellations() {
           map={starTexture}
           vertexColors
           transparent
-          opacity={1.0}
+          opacity={0.35}
           sizeAttenuation
           blending={THREE.AdditiveBlending}
           depthWrite={false}
@@ -851,7 +851,7 @@ function Constellations() {
         <lineBasicMaterial
           color="#e8d5b7"
           transparent
-          opacity={0.25}
+          opacity={0.12}
           blending={THREE.AdditiveBlending}
           depthWrite={false}
         />
