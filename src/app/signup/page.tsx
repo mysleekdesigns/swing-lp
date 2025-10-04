@@ -127,7 +127,7 @@ export default function SignupPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="rounded-xl border border-primary/40 bg-primary/10 p-6 shadow-sm"
+                className="rounded-xl border border-accent/30 bg-gradient-to-br from-accent/10 via-background/20 to-background/30 backdrop-blur-md p-6 shadow-[0_0_80px_-12px_rgba(0,0,0,0.5),0_8px_32px_-8px_rgba(0,0,0,0.3),inset_0_1px_0_0_rgba(255,255,255,0.05)]"
               >
                 <div className="text-3xl font-bold text-primary mb-2">25+</div>
                 <div className="text-sm font-semibold text-foreground mb-2">Years of Experience</div>
@@ -141,7 +141,7 @@ export default function SignupPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="rounded-xl border border-accent/40 bg-accent/10 p-6 shadow-sm"
+                className="rounded-xl border border-accent/30 bg-gradient-to-br from-accent/10 via-background/20 to-background/30 backdrop-blur-md p-6 shadow-[0_0_80px_-12px_rgba(0,0,0,0.5),0_8px_32px_-8px_rgba(0,0,0,0.3),inset_0_1px_0_0_rgba(255,255,255,0.05)]"
               >
                 <div className="text-3xl font-bold text-accent mb-2">#1</div>
                 <div className="text-sm font-semibold text-foreground mb-2">Largest Community</div>
@@ -155,7 +155,7 @@ export default function SignupPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="rounded-xl border border-secondary/40 bg-secondary/10 p-6 shadow-sm"
+                className="rounded-xl border border-accent/30 bg-gradient-to-br from-accent/10 via-background/20 to-background/30 backdrop-blur-md p-6 shadow-[0_0_80px_-12px_rgba(0,0,0,0.5),0_8px_32px_-8px_rgba(0,0,0,0.3),inset_0_1px_0_0_rgba(255,255,255,0.05)]"
               >
                 <div className="text-3xl font-bold text-secondary mb-2">∞</div>
                 <div className="text-sm font-semibold text-foreground mb-2">Endless Possibilities</div>

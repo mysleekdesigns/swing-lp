@@ -48,17 +48,17 @@ export function BrandStorySection() {
 
             {/* Stats Grid - simplified */}
             <div className="grid grid-cols-3 gap-6">
-              <div className="rounded-xl border border-primary/40 bg-primary/10 p-6 shadow-sm">
+              <div className="rounded-xl border border-accent/30 bg-gradient-to-br from-accent/10 via-background/20 to-background/30 backdrop-blur-md p-6 shadow-[0_0_80px_-12px_rgba(0,0,0,0.5),0_8px_32px_-8px_rgba(0,0,0,0.3),inset_0_1px_0_0_rgba(255,255,255,0.05)]">
                 <div className="text-3xl font-bold text-primary">25+</div>
                 <div className="text-sm text-muted-foreground">Years</div>
               </div>
 
-              <div className="rounded-xl border border-accent/40 bg-accent/10 p-6 shadow-sm">
+              <div className="rounded-xl border border-accent/30 bg-gradient-to-br from-accent/10 via-background/20 to-background/30 backdrop-blur-md p-6 shadow-[0_0_80px_-12px_rgba(0,0,0,0.5),0_8px_32px_-8px_rgba(0,0,0,0.3),inset_0_1px_0_0_rgba(255,255,255,0.05)]">
                 <div className="text-3xl font-bold text-accent">#1</div>
                 <div className="text-sm text-muted-foreground">Worldwide</div>
               </div>
 
-              <div className="rounded-xl border border-secondary/40 bg-secondary/10 p-6 shadow-sm">
+              <div className="rounded-xl border border-accent/30 bg-gradient-to-br from-accent/10 via-background/20 to-background/30 backdrop-blur-md p-6 shadow-[0_0_80px_-12px_rgba(0,0,0,0.5),0_8px_32px_-8px_rgba(0,0,0,0.3),inset_0_1px_0_0_rgba(255,255,255,0.05)]">
                 <div className="text-3xl font-bold text-secondary">∞</div>
                 <div className="text-sm text-muted-foreground">Possibilities</div>
               </div>
@@ -71,11 +71,11 @@ export function BrandStorySection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex items-center justify-center"
+            className="flex items-center justify-center lg:justify-end"
           >
             {/* Clean glass card */}
             <div className="relative w-full max-w-lg">
-              <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm p-8 shadow-lg">
+              <div className="relative overflow-hidden rounded-2xl border border-accent/30 bg-gradient-to-br from-accent/10 via-background/20 to-background/30 backdrop-blur-md p-8 shadow-[0_0_80px_-12px_rgba(0,0,0,0.5),0_8px_32px_-8px_rgba(0,0,0,0.3),inset_0_1px_0_0_rgba(255,255,255,0.05)]">
                 {/* Content */}
                 <div className="space-y-6">
                   {/* Icon */}

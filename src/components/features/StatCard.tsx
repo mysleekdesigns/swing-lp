@@ -20,7 +20,7 @@ export function StatCard({ label, value, index }: StatCardProps) {
       className="group relative"
     >
       {/* Clean card */}
-      <div className="relative h-full bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border/50 hover:border-primary/30 transition-colors text-center">
+      <div className="relative h-full bg-gradient-to-br from-accent/10 via-background/20 to-background/30 backdrop-blur-md rounded-xl p-6 border border-accent/30 hover:border-primary/30 transition-colors text-center shadow-[0_0_80px_-12px_rgba(0,0,0,0.5),0_8px_32px_-8px_rgba(0,0,0,0.3),inset_0_1px_0_0_rgba(255,255,255,0.05)]">
         {/* Value */}
         <div className="text-3xl sm:text-4xl font-bold mb-2">
           <span className="bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent">

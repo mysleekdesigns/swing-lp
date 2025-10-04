@@ -25,7 +25,7 @@ export function StatsSection() {
       {/* Content */}
       <div className="relative mx-auto max-w-[1600px] px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         {/* Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-12 xl:gap-16 2xl:gap-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-12">
           {stats.map((stat, index) => (
             <StatCard
               key={stat.label}
