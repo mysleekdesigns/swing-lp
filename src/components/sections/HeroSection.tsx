@@ -46,27 +46,6 @@ export function HeroSection() {
             >
               Swinglifestyle.com has served members for nearly 25 years. Now transitioning to Swing.com — the largest swingers website — to ignite connections and fulfill fantasies.
             </motion.p>
-
-            {/* Trust badges - cleaner */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex items-center justify-center lg:justify-start gap-6 text-sm text-muted-foreground"
-            >
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-primary" />
-                <span>Secure & Private</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-accent" />
-                <span>25+ Years</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-secondary" />
-                <span>Verified Members</span>
-              </div>
-            </motion.div>
           </div>
 
           {/* Right Column - Login Form */}
