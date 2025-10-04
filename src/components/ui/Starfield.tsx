@@ -45,67 +45,319 @@ interface Constellation {
   connections: [number, number][]; // Pairs of star indices to connect
 }
 
+// Helper: Calculate visible bounds at a given z-depth based on camera FOV
+function getVisibleBounds(zDepth: number, cameraZ: number = 5, fov: number = 75) {
+  const distance = Math.abs(zDepth - cameraZ);
+  const vFov = (fov * Math.PI) / 180; // Convert to radians
+  const height = 2 * Math.tan(vFov / 2) * distance;
+  // Use actual window dimensions if available, otherwise assume 16:9 aspect ratio
+  const aspectRatio = typeof window !== 'undefined'
+    ? window.innerWidth / window.innerHeight
+    : 16 / 9;
+  const width = height * aspectRatio;
+  return { width, height };
+}
+
+// Helper: Calculate bounding box of a constellation
+interface ConstellationBounds {
+  minX: number;
+  maxX: number;
+  minY: number;
+  maxY: number;
+  minZ: number;
+  maxZ: number;
+  centerX: number;
+  centerY: number;
+  centerZ: number;
+  width: number;
+  height: number;
+  depth: number;
+}
+
+function getConstellationBounds(constellation: Constellation): ConstellationBounds {
+  const xs = constellation.stars.map(s => s.x);
+  const ys = constellation.stars.map(s => s.y);
+  const zs = constellation.stars.map(s => s.z);
+
+  const minX = Math.min(...xs);
+  const maxX = Math.max(...xs);
+  const minY = Math.min(...ys);
+  const maxY = Math.max(...ys);
+  const minZ = Math.min(...zs);
+  const maxZ = Math.max(...zs);
+
+  return {
+    minX, maxX, minY, maxY, minZ, maxZ,
+    centerX: (minX + maxX) / 2,
+    centerY: (minY + maxY) / 2,
+    centerZ: (minZ + maxZ) / 2,
+    width: maxX - minX,
+    height: maxY - minY,
+    depth: maxZ - minZ,
+  };
+}
+
+// Helper: Generate random positions with minimum spacing
+interface RandomPosition {
+  x: number;
+  y: number;
+  z: number;
+}
+
+function generateRandomPositions(
+  constellations: Constellation[],
+  minSpacing: number = 8
+): RandomPosition[] {
+  const positions: RandomPosition[] = [];
+  const bounds = constellations.map(c => getConstellationBounds(c));
+
+  // Average z-depth for calculations
+  const avgZ = -30;
+  const { width: viewWidth, height: viewHeight } = getVisibleBounds(avgZ);
+
+  // Use 80% of visible area to avoid edge clipping
+  const rangeX = viewWidth * 0.8;
+  const rangeY = viewHeight * 0.8;
+  const rangeZ = 20; // z-depth range: -20 to -40
+
+  for (let i = 0; i < constellations.length; i++) {
+    const maxAttempts = 100;
+    let placed = false;
+
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      // Generate random position
+      const candidatePos: RandomPosition = {
+        x: (Math.random() - 0.5) * rangeX,
+        y: (Math.random() - 0.5) * rangeY,
+        z: -20 - Math.random() * rangeZ, // Between -20 and -40
+      };
+
+      // Check spacing against all previously placed constellations
+      let hasCollision = false;
+      for (let j = 0; j < positions.length; j++) {
+        const distance = Math.sqrt(
+          Math.pow(candidatePos.x - positions[j].x, 2) +
+          Math.pow(candidatePos.y - positions[j].y, 2)
+        );
+
+        // Calculate required spacing based on both constellation sizes
+        const requiredSpacing = minSpacing +
+          (bounds[i].width + bounds[j].width) / 2;
+
+        if (distance < requiredSpacing) {
+          hasCollision = true;
+          break;
+        }
+      }
+
+      if (!hasCollision) {
+        positions.push(candidatePos);
+        placed = true;
+        break;
+      }
+    }
+
+    // Fallback: place in a grid if random placement fails
+    if (!placed) {
+      const cols = Math.ceil(Math.sqrt(constellations.length));
+      const row = Math.floor(i / cols);
+      const col = i % cols;
+      const cellWidth = rangeX / cols;
+      const cellHeight = rangeY / cols;
+
+      positions.push({
+        x: (col - cols / 2 + 0.5) * cellWidth,
+        y: (row - cols / 2 + 0.5) * cellHeight,
+        z: -20 - Math.random() * rangeZ,
+      });
+    }
+  }
+
+  return positions;
+}
+
 const CONSTELLATIONS: Constellation[] = [
   {
-    name: 'Orion',
+    name: 'Aries', // Small, scale ~0.6
     stars: [
-      { x: -15, y: 12, z: -25 },    // Betelgeuse (left shoulder)
-      { x: -13.5, y: 10.5, z: -25 },    // Belt star 1
-      { x: -14, y: 9.8, z: -25 },    // Belt star 2
-      { x: -14.5, y: 9, z: -25 },    // Belt star 3
-      { x: -16, y: 7, z: -25 },   // Rigel (left foot)
-      { x: -12, y: 7, z: -25 },    // Right foot
-      { x: -12.5, y: 12, z: -25 },    // Right shoulder
+      { x: -23, y: 17, z: -25 },    // Horn tip left
+      { x: -22, y: 16, z: -25 },    // Base
+      { x: -21, y: 17, z: -25 },    // Horn tip right
     ],
     connections: [
-      [0, 1], [1, 2], [2, 3], [3, 4], // Left side
-      [6, 2], [2, 5], // Right side
-      [0, 6], // Shoulders
+      [0, 1], [1, 2], // V-shape for ram's horns
     ],
   },
   {
-    name: 'Big Dipper',
+    name: 'Taurus', // Medium, scale ~0.8
     stars: [
-      { x: 12, y: 10, z: -28 },
-      { x: 13.5, y: 11, z: -28 },
-      { x: 15, y: 11, z: -28 },
-      { x: 16, y: 9.5, z: -28 },
-      { x: 15, y: 7.5, z: -28 },
-      { x: 13.5, y: 6.5, z: -28 },
-      { x: 12, y: 7.5, z: -28 },
+      { x: -15, y: 19, z: -30 },    // Left horn
+      { x: -13.5, y: 17.5, z: -30 }, // Left head
+      { x: -12, y: 17, z: -30 },    // Center/eye
+      { x: -10.5, y: 17.5, z: -30 }, // Right head
+      { x: -9, y: 19, z: -30 },     // Right horn
     ],
     connections: [
-      [0, 1], [1, 2], [2, 3], // Cup
-      [3, 4], [4, 5], [5, 6], // Handle
+      [0, 1], [1, 2], [2, 3], [3, 4], // Bull's head
     ],
   },
   {
-    name: 'Cassiopeia',
+    name: 'Gemini', // Medium, scale ~0.8 - The Twins (Castor & Pollux)
     stars: [
-      { x: -8, y: 14, z: -22 },
-      { x: -9.5, y: 12.5, z: -22 },
-      { x: -11, y: 14, z: -22 },
-      { x: -12.5, y: 12.5, z: -22 },
-      { x: -14, y: 14, z: -22 },
+      { x: -1.5, y: 19, z: -22 },     // Castor (left twin head)
+      { x: -1.5, y: 17.5, z: -22 },   // Left twin shoulder
+      { x: -1.5, y: 16, z: -22 },     // Left twin waist
+      { x: -2, y: 14.5, z: -22 },     // Left twin foot
+      { x: 1.5, y: 19, z: -22 },      // Pollux (right twin head)
+      { x: 1.5, y: 17.5, z: -22 },    // Right twin shoulder
+      { x: 1.5, y: 16, z: -22 },      // Right twin waist
+      { x: 2, y: 14.5, z: -22 },      // Right twin foot
+      { x: 0, y: 17.2, z: -22 },      // Connection point between twins
     ],
     connections: [
-      [0, 1], [1, 2], [2, 3], [3, 4], // W shape
+      [0, 1], [1, 2], [2, 3],         // Left twin (Castor)
+      [4, 5], [5, 6], [6, 7],         // Right twin (Pollux)
+      [1, 8], [8, 5],                 // Connection between twins
     ],
   },
   {
-    name: 'Leo',
+    name: 'Cancer', // Medium, scale ~0.7
     stars: [
-      { x: 10, y: 13, z: -26 },   // Regulus
-      { x: 11.5, y: 14, z: -26 },
-      { x: 13, y: 13, z: -26 },
-      { x: 14.5, y: 11.5, z: -26 },
-      { x: 13, y: 10, z: -26 },
-      { x: 11.5, y: 10.5, z: -26 },
-      { x: 10, y: 11.5, z: -26 },
+      { x: 14, y: 16, z: -28 },     // Top
+      { x: 13.3, y: 15, z: -28 },   // Left
+      { x: 14.7, y: 15, z: -28 },   // Right
+      { x: 14, y: 14, z: -28 },     // Bottom
+      { x: 12.5, y: 16, z: -28 },   // Left claw
+      { x: 15.5, y: 16, z: -28 },   // Right claw
     ],
     connections: [
-      [0, 1], [1, 2], [2, 3], // Back
-      [3, 4], [4, 5], [5, 6], [6, 0], // Body loop
+      [0, 1], [1, 3], [3, 2], [2, 0], // Body
+      [0, 4], [0, 5], // Claws
+    ],
+  },
+  {
+    name: 'Leo', // Large, scale ~1.0 - The Lion with Sickle
+    stars: [
+      { x: 18, y: 12, z: -35 },     // Epsilon Leonis (Sickle top)
+      { x: 18.3, y: 11.2, z: -35 }, // Mu Leonis (Sickle)
+      { x: 18.7, y: 10.5, z: -35 }, // Zeta Leonis (Sickle)
+      { x: 19.2, y: 9.7, z: -35 },  // Gamma Leonis/Algieba (Sickle)
+      { x: 19.5, y: 8.8, z: -35 },  // Eta Leonis (Sickle)
+      { x: 19.8, y: 8, z: -35 },    // Regulus/Alpha Leonis (heart, Sickle bottom)
+      { x: 20.5, y: 8.5, z: -35 },  // Body
+      { x: 21, y: 9, z: -35 },      // Back
+      { x: 21.5, y: 9.5, z: -35 },  // Hindquarters
+      { x: 22, y: 10, z: -35 },     // Denebola (Beta Leonis - tail)
+    ],
+    connections: [
+      [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], // The Sickle (head/mane)
+      [5, 6], [6, 7], [7, 8], [8, 9],         // Body to tail
+    ],
+  },
+  {
+    name: 'Virgo', // Small, scale ~0.6
+    stars: [
+      { x: 25, y: 6.2, z: -26 },    // Top
+      { x: 25, y: 5, z: -26 },      // Center
+      { x: 24.4, y: 4.1, z: -26 },  // Left bottom
+      { x: 25.6, y: 4.1, z: -26 },  // Right bottom
+      { x: 25, y: 4.5, z: -26 },    // Mid point
+    ],
+    connections: [
+      [0, 1], [1, 4], [4, 2], [4, 3], // Y-shape for maiden
+    ],
+  },
+  {
+    name: 'Libra', // Medium, scale ~0.8
+    stars: [
+      { x: -23, y: -1, z: -32 },    // Left scale
+      { x: -21.5, y: 0, z: -32 },   // Left beam
+      { x: -19.5, y: 0, z: -32 },   // Right beam
+      { x: -18, y: -1, z: -32 },    // Right scale
+      { x: -20.5, y: 1, z: -32 },   // Top center
+    ],
+    connections: [
+      [0, 1], [1, 4], [4, 2], [2, 3], // Balance scales
+    ],
+  },
+  {
+    name: 'Scorpio', // Large, scale ~1.2 - The Scorpion
+    stars: [
+      { x: -13.5, y: -3.5, z: -38 }, // Graffias/Beta Sco (head/claw)
+      { x: -13, y: -4, z: -38 },     // Delta Sco/Dschubba (head)
+      { x: -12, y: -4.5, z: -38 },   // Pi Sco (head)
+      { x: -11.5, y: -5, z: -38 },   // Antares/Alpha Sco (heart) - brightest
+      { x: -11, y: -5.5, z: -38 },   // Tau Sco (body)
+      { x: -10.5, y: -6, z: -38 },   // Epsilon Sco (body)
+      { x: -10, y: -6.8, z: -38 },   // Mu Sco (tail start)
+      { x: -9.5, y: -7.5, z: -38 },  // Theta Sco/Sargas (tail curve)
+      { x: -9, y: -8.3, z: -38 },    // Kappa Sco (tail)
+      { x: -8.5, y: -9, z: -38 },    // Iota Sco (tail)
+      { x: -8, y: -9.5, z: -38 },    // Lambda Sco/Shaula (stinger tip)
+      { x: -7.7, y: -9.8, z: -38 },  // Upsilon Sco/Lesath (stinger)
+    ],
+    connections: [
+      [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], // Head to body
+      [6, 7], [7, 8], [8, 9], [9, 10], [10, 11],      // Curved tail to stinger
+    ],
+  },
+  {
+    name: 'Sagittarius', // Medium, scale ~0.8 - The Teapot Asterism
+    stars: [
+      { x: 3.5, y: -8, z: -24 },    // Alnasl/Gamma Sgr (spout tip)
+      { x: 4.5, y: -7.5, z: -24 },  // Kaus Media/Delta Sgr (base left)
+      { x: 5, y: -8.2, z: -24 },    // Kaus Australis/Epsilon Sgr (base bottom)
+      { x: 5.7, y: -7.5, z: -24 },  // Ascella/Zeta Sgr (base right)
+      { x: 6.2, y: -8, z: -24 },    // Phi Sgr (body right)
+      { x: 5, y: -6.2, z: -24 },    // Kaus Borealis/Lambda Sgr (lid point)
+      { x: 6.8, y: -7, z: -24 },    // Nunki/Sigma Sgr (handle top)
+      { x: 6.5, y: -7.8, z: -24 },  // Tau Sgr (handle bottom)
+    ],
+    connections: [
+      [0, 1], [1, 2], [2, 3], [3, 4], // Teapot body and spout
+      [1, 5], [3, 5],                 // Lid
+      [4, 7], [7, 6],                 // Handle
+    ],
+  },
+  {
+    name: 'Capricorn', // Small, scale ~0.5
+    stars: [
+      { x: 17, y: -10, z: -30 },    // Head
+      { x: 17.5, y: -10.5, z: -30 }, // Back
+      { x: 18, y: -11, z: -30 },    // Tail start
+      { x: 18.2, y: -11.5, z: -30 }, // Tail curve
+      { x: 18, y: -12, z: -30 },    // Tail end
+    ],
+    connections: [
+      [0, 1], [1, 2], [2, 3], [3, 4], // Goat with curved tail
+    ],
+  },
+  {
+    name: 'Aquarius', // Small-medium, scale ~0.6
+    stars: [
+      { x: 7, y: -14.5, z: -36 },   // Wave 1 top
+      { x: 7.6, y: -15, z: -36 },   // Wave 1 bottom
+      { x: 8.2, y: -14.5, z: -36 }, // Wave 2 top
+      { x: 8.8, y: -15, z: -36 },   // Wave 2 bottom
+      { x: 7.6, y: -14, z: -36 },   // Water source
+    ],
+    connections: [
+      [4, 0], [0, 1], [1, 2], [2, 3], // Water waves
+    ],
+  },
+  {
+    name: 'Pisces', // Medium, scale ~0.9
+    stars: [
+      { x: -20, y: -10, z: -27 },   // Left fish top
+      { x: -19, y: -11, z: -27 },   // Left fish middle
+      { x: -20, y: -12, z: -27 },   // Left fish bottom
+      { x: -17.2, y: -11, z: -27 }, // Connection
+      { x: -15.5, y: -10, z: -27 }, // Right fish top
+      { x: -14.5, y: -11, z: -27 }, // Right fish middle
+      { x: -15.5, y: -12, z: -27 }, // Right fish bottom
+    ],
+    connections: [
+      [0, 1], [1, 2], [1, 3], [3, 5], [4, 5], [5, 6], // Two fish connected
     ],
   },
 ];
@@ -440,20 +692,38 @@ function Constellations() {
   // Create star texture for constellation stars
   const starTexture = useMemo(() => createStarTexture(), []);
 
-  // Prepare constellation stars and lines data
+  // Prepare constellation stars and lines data with randomized positions
   const constellationData = useMemo(() => {
     const allStars: { x: number; y: number; z: number }[] = [];
     const allLines: { start: number; end: number }[] = [];
 
+    // Generate random positions for all constellations
+    const randomPositions = generateRandomPositions(CONSTELLATIONS);
+
     let currentStarIndex = 0;
 
     // Process each constellation
-    CONSTELLATIONS.forEach((constellation) => {
+    CONSTELLATIONS.forEach((constellation, constellationIndex) => {
       const constellationStartIndex = currentStarIndex;
 
-      // Add all stars from this constellation
+      // Calculate the original center of this constellation
+      const bounds = getConstellationBounds(constellation);
+
+      // Get the new random position for this constellation
+      const newPosition = randomPositions[constellationIndex];
+
+      // Calculate offset to move constellation from its current center to new position
+      const offsetX = newPosition.x - bounds.centerX;
+      const offsetY = newPosition.y - bounds.centerY;
+      const offsetZ = newPosition.z - bounds.centerZ;
+
+      // Add all stars from this constellation with offset applied
       constellation.stars.forEach((star) => {
-        allStars.push(star);
+        allStars.push({
+          x: star.x + offsetX,
+          y: star.y + offsetY,
+          z: star.z + offsetZ,
+        });
         currentStarIndex++;
       });
 
