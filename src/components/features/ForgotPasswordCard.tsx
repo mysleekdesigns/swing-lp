@@ -58,7 +58,7 @@ export function ForgotPasswordCard() {
         className="w-full max-w-lg"
       >
         {/* Success State Card */}
-        <div className="relative overflow-hidden rounded-3xl bg-primary/5 backdrop-blur-xl border border-primary/20 shadow-2xl">
+        <div className="relative overflow-hidden rounded-3xl bg-primary/10 backdrop-blur-3xl border border-primary/20 shadow-2xl">
           {/* Card Content */}
           <div className="relative p-6 sm:p-8 md:p-10">
             {/* Success Icon */}
@@ -170,7 +170,7 @@ export function ForgotPasswordCard() {
       className="w-full max-w-lg"
     >
       {/* Glass Morphism Card */}
-      <div className="relative overflow-hidden rounded-3xl bg-primary/5 backdrop-blur-xl border border-primary/20 shadow-2xl">
+      <div className="relative overflow-hidden rounded-3xl bg-primary/10 backdrop-blur-3xl border border-primary/20 shadow-2xl">
         {/* Card Content */}
         <div className="relative p-6 sm:p-8 md:p-10">
           {/* Header */}
