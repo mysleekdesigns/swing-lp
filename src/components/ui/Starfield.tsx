@@ -4,6 +4,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { useRef, useMemo, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { useReducedMotion } from '@/lib/animations';
+import { ShootingStars } from './ShootingStar';
 
 // Easing functions for smooth transitions
 const easeOut = (t: number): number => {
@@ -151,43 +152,41 @@ function Comet({ index }: { index: number }) {
     const seed = index * 123.456;
     const random = (min: number, max: number) => min + (Math.sin(seed + min) * 0.5 + 0.5) * (max - min);
 
-    // Random duration between 3-5 seconds
-    const duration = random(3, 5);
+    // Random duration between 2-3 seconds
+    const duration = random(2, 3);
 
-    // Random starting position on the edge of the view
-    const startSide = Math.floor(random(0, 4)); // 0=top, 1=right, 2=bottom, 3=left
-    let startX, startY, startZ;
+    // Constant z-depth for 2D horizontal movement
+    const constantZ = -12;
 
-    // Position starts from edges
-    if (startSide === 0) { // Top
-      startX = random(-50, 50);
-      startY = 35;
-      startZ = random(-20, -10);
-    } else if (startSide === 1) { // Right
-      startX = 50;
-      startY = random(-35, 35);
-      startZ = random(-20, -10);
-    } else if (startSide === 2) { // Bottom
-      startX = random(-50, 50);
-      startY = -35;
-      startZ = random(-20, -10);
-    } else { // Left
-      startX = -50;
-      startY = random(-35, 35);
-      startZ = random(-20, -10);
+    // Random starting position - left or right edge only
+    const startFromLeft = random(0, 1) > 0.5;
+    let startX, startY, startZ, endX, endY, endZ;
+
+    startY = random(-15, 15); // Random vertical position
+    startZ = constantZ;
+
+    if (startFromLeft) {
+      // Start from left, move right
+      startX = -35;
+      endX = 35;
+    } else {
+      // Start from right, move left
+      startX = 35;
+      endX = -35;
     }
 
-    // Calculate diagonal path at ~45 degrees
-    const angle = random(0, Math.PI * 2);
-    const distance = random(60, 100);
-    const endX = startX + Math.cos(angle) * distance;
-    const endY = startY + Math.sin(angle) * distance;
-    const endZ = random(5, 15);
+    // Add slight vertical angle variation (±10-15° from horizontal)
+    const verticalAngle = random(-0.25, 0.25); // ±0.25 radians ≈ ±14°
+    const horizontalDistance = Math.abs(endX - startX);
+    const verticalDistance = Math.tan(verticalAngle) * horizontalDistance;
+
+    endY = startY + verticalDistance;
+    endZ = constantZ; // Keep same z-depth for horizontal movement
 
     return {
       path: { startX, startY, startZ, endX, endY, endZ },
       duration,
-      startTime: random(0, 10), // Stagger start times
+      startTime: random(0, 3), // Stagger start times
       twinkleFreq: random(3, 6), // Twinkle frequency in Hz
     };
   }, [index]);
@@ -206,7 +205,7 @@ function Comet({ index }: { index: number }) {
       // Position along tail (will be updated in animation)
       positions[i3] = 0;
       positions[i3 + 1] = 0;
-      positions[i3 + 2] = -t * 15; // Tail length = 15 units
+      positions[i3 + 2] = -t * 4; // Tail length = 4 units
 
       // Color gradient: white → purple → transparent
       if (t < 0.3) {
@@ -282,7 +281,7 @@ function Comet({ index }: { index: number }) {
       headRef.current.material.opacity = finalOpacity;
     }
     if (tailRef.current.material instanceof THREE.PointsMaterial) {
-      tailRef.current.material.opacity = finalOpacity * 0.8;
+      tailRef.current.material.opacity = finalOpacity * 0.95;
     }
 
     // Scale twinkle
@@ -291,10 +290,10 @@ function Comet({ index }: { index: number }) {
   });
 
   return (
-    <group ref={groupRef}>
-      {/* Shooting star head - elongated cylinder */}
-      <mesh ref={headRef} position={[0, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-        <cylinderGeometry args={[0.15, 0.3, 0.8, 8]} />
+    <group ref={groupRef} frustumCulled={false}>
+      {/* Shooting star head - small glowing sphere */}
+      <mesh ref={headRef} position={[0, 0, 0]}>
+        <sphereGeometry args={[0.15, 16, 16]} />
         <meshBasicMaterial
           color="#ffffee"
           transparent
@@ -306,7 +305,7 @@ function Comet({ index }: { index: number }) {
       {/* Tail - particle stream */}
       <points ref={tailRef} geometry={tailGeometry}>
         <pointsMaterial
-          size={0.3}
+          size={0.25}
           vertexColors
           transparent
           opacity={0.8}
@@ -335,7 +334,7 @@ export function Starfield() {
   return (
     <div className="starfield-container">
       <Canvas
-        camera={{ position: [0, 0, 5], fov: 75 }}
+        camera={{ position: [0, 0, 5], fov: 75, near: 0.1, far: 1000 }}
         gl={{
           alpha: true,
           antialias: false, // Better performance
@@ -347,12 +346,10 @@ export function Starfield() {
 
         {/* Stars */}
         <Stars />
-
-        {/* Multiple comets */}
-        <Comet index={0} />
-        <Comet index={1} />
-        <Comet index={2} />
       </Canvas>
+
+      {/* CSS-based shooting stars */}
+      <ShootingStars />
 
       {/* Gradient fade overlay (bottom) */}
       <div className="starfield-fade" />
