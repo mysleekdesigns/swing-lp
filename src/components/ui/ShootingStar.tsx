@@ -47,8 +47,8 @@ export function ShootingStars() {
         style={{
           top: config.top,
           left: config.left,
-          animationDuration: config.duration,
-        }}
+          '--star-duration': config.duration,
+        } as React.CSSProperties}
       >
         <div className="shooting-star-glow shooting-star-glow-1" />
         <div className="shooting-star-glow shooting-star-glow-2" />

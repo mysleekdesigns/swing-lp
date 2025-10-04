@@ -235,8 +235,8 @@
     border-radius: 999px;
     filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
     animation:
-      tail 6000ms ease-in-out infinite,
-      shooting 6000ms ease-in-out infinite;
+      tail var(--star-duration, 6000ms) ease-in-out,
+      shooting var(--star-duration, 6000ms) ease-in-out;
   }
 
   /* Glow effects on shooting star */
@@ -256,11 +256,11 @@
   }
 
   .shooting-star-glow-1 {
-    animation: shining 6000ms ease-in-out infinite, twinkle-rotate-1 3000ms linear infinite;
+    animation: shining var(--star-duration, 6000ms) ease-in-out, twinkle-rotate-1 3000ms linear infinite;
   }
 
   .shooting-star-glow-2 {
-    animation: shining 6000ms ease-in-out infinite, twinkle-rotate-2 3000ms linear infinite;
+    animation: shining var(--star-duration, 6000ms) ease-in-out, twinkle-rotate-2 3000ms linear infinite;
   }
 
   /* Keyframe animations */
