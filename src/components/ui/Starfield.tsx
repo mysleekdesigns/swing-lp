@@ -50,45 +50,73 @@ function Stars() {
   const starData = useMemo(() => {
     const starCount = 5000;
     const positions = new Float32Array(starCount * 3);
-    const colors = new Float32Array(starCount * 3);
+    const colors = new Float32Array(starCount * 4); // RGBA for alpha-based twinkling
     const sizes = new Float32Array(starCount);
+    const twinklePhases = new Float32Array(starCount); // Random phase offsets
+    const twinkleFrequencies = new Float32Array(starCount); // Random twinkle speeds
 
     for (let i = 0; i < starCount; i++) {
       const i3 = i * 3;
+      const i4 = i * 4;
 
       // Random positions in 3D space
       positions[i3] = (Math.random() - 0.5) * 100; // x
       positions[i3 + 1] = (Math.random() - 0.5) * 100; // y
       positions[i3 + 2] = (Math.random() - 0.5) * 100; // z
 
-      // Star colors - mostly white with some purple/magenta tints
+      // Star colors - mostly white with planet-like color tints
       const colorVariant = Math.random();
-      if (colorVariant > 0.95) {
-        // Purple tint (5% of stars)
-        colors[i3] = 0.9;
-        colors[i3 + 1] = 0.7;
-        colors[i3 + 2] = 1.0;
-      } else if (colorVariant > 0.9) {
+      if (colorVariant > 0.98) {
+        // Uranus cyan (2% of stars)
+        colors[i4] = 0.45;
+        colors[i4 + 1] = 0.85;
+        colors[i4 + 2] = 0.95;
+      } else if (colorVariant > 0.95) {
+        // Saturn/Venus yellow (3% of stars)
+        colors[i4] = 1.0;
+        colors[i4 + 1] = 0.9;
+        colors[i4 + 2] = 0.65;
+      } else if (colorVariant > 0.90) {
+        // Earth/Neptune blue (5% of stars)
+        colors[i4] = 0.35;
+        colors[i4 + 1] = 0.55;
+        colors[i4 + 2] = 1.0;
+      } else if (colorVariant > 0.85) {
+        // Mars red/orange (5% of stars)
+        colors[i4] = 1.0;
+        colors[i4 + 1] = 0.5;
+        colors[i4 + 2] = 0.35;
+      } else if (colorVariant > 0.80) {
         // Magenta/pink tint (5% of stars)
-        colors[i3] = 1.0;
-        colors[i3 + 1] = 0.7;
-        colors[i3 + 2] = 0.9;
+        colors[i4] = 1.0;
+        colors[i4 + 1] = 0.7;
+        colors[i4 + 2] = 0.9;
+      } else if (colorVariant > 0.75) {
+        // Purple tint (5% of stars)
+        colors[i4] = 0.9;
+        colors[i4 + 1] = 0.7;
+        colors[i4 + 2] = 1.0;
       } else {
-        // White/blue-white (90% of stars)
+        // White/blue-white (75% of stars)
         const brightness = 0.8 + Math.random() * 0.2;
-        colors[i3] = brightness;
-        colors[i3 + 1] = brightness;
-        colors[i3 + 2] = brightness * (0.95 + Math.random() * 0.05);
+        colors[i4] = brightness;
+        colors[i4 + 1] = brightness;
+        colors[i4 + 2] = brightness * (0.95 + Math.random() * 0.05);
       }
+      colors[i4 + 3] = 1.0; // Alpha channel (will be animated for twinkle)
 
       // Varying star sizes for depth perception
-      sizes[i] = Math.random() * 0.8 + 0.3;
+      sizes[i] = Math.random() * 0.4 + 0.2; // Smaller range: 0.2 to 0.6
+
+      // Twinkle data - random phase offsets and frequencies
+      twinklePhases[i] = Math.random() * Math.PI * 2; // Random phase 0-2π
+      twinkleFrequencies[i] = 0.2 + Math.random() * 0.8; // Frequency 0.2-1.0 Hz (slower twinkle)
     }
 
-    return { positions, colors, sizes, count: starCount };
+    return { positions, colors, sizes, twinklePhases, twinkleFrequencies, count: starCount };
   }, []);
 
-  // Animate camera movement (slow drift through space)
+  // Animate camera movement (slow drift through space) and star twinkling
   useFrame((state) => {
     if (!prefersReducedMotion && meshRef.current) {
       // Slow rotation for subtle movement
@@ -98,6 +126,19 @@ function Stars() {
       // Gentle z-axis movement for depth
       const time = state.clock.elapsedTime;
       state.camera.position.z = Math.sin(time * 0.05) * 2;
+
+      // Twinkle effect - animate star opacity via alpha channel
+      const colorAttribute = meshRef.current.geometry.attributes.color;
+      if (colorAttribute) {
+        for (let i = 0; i < starData.count; i++) {
+          // Calculate twinkle using sine wave with individual phase and frequency
+          const twinkle = Math.sin(time * starData.twinkleFrequencies[i] + starData.twinklePhases[i]);
+          // Alpha varies between 0.3 and 1.0 (70% variation for visible twinkling)
+          const alpha = 0.65 + twinkle * 0.35;
+          colorAttribute.array[i * 4 + 3] = alpha; // Update alpha channel
+        }
+        colorAttribute.needsUpdate = true;
+      }
     }
   });
 
@@ -115,8 +156,8 @@ function Stars() {
           attach="attributes-color"
           count={starData.count}
           array={starData.colors}
-          itemSize={3}
-          args={[starData.colors, 3]}
+          itemSize={4}
+          args={[starData.colors, 4]}
         />
         <bufferAttribute
           attach="attributes-size"
