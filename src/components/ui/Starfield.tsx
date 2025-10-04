@@ -5,6 +5,15 @@ import { useRef, useMemo, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { useReducedMotion } from '@/lib/animations';
 
+// Easing functions for smooth transitions
+const easeOut = (t: number): number => {
+  return 1 - Math.pow(1 - t, 3); // Cubic ease-out
+};
+
+const easeIn = (t: number): number => {
+  return t * t * t; // Cubic ease-in
+};
+
 // Create circular star texture for glowing effect
 function createStarTexture() {
   const canvas = document.createElement('canvas');
@@ -72,7 +81,7 @@ function Stars() {
       }
 
       // Varying star sizes for depth perception
-      sizes[i] = Math.random() * 2 + 0.5;
+      sizes[i] = Math.random() * 0.8 + 0.3;
     }
 
     return { positions, colors, sizes, count: starCount };
@@ -82,12 +91,12 @@ function Stars() {
   useFrame((state) => {
     if (!prefersReducedMotion && meshRef.current) {
       // Slow rotation for subtle movement
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.01;
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.005;
+      meshRef.current.rotation.y = state.clock.elapsedTime * 0.005;
+      meshRef.current.rotation.x = state.clock.elapsedTime * 0.0025;
 
       // Gentle z-axis movement for depth
       const time = state.clock.elapsedTime;
-      state.camera.position.z = Math.sin(time * 0.1) * 2;
+      state.camera.position.z = Math.sin(time * 0.05) * 2;
     }
   });
 
@@ -130,135 +139,180 @@ function Stars() {
   );
 }
 
-// Comet component with particle trail
+// Shooting Star component with tail
 function Comet({ index }: { index: number }) {
-  const cometRef = useRef<THREE.Group>(null);
-  const trailRef = useRef<THREE.Points>(null);
+  const groupRef = useRef<THREE.Group>(null);
+  const headRef = useRef<THREE.Mesh>(null);
+  const tailRef = useRef<THREE.Mesh>(null);
   const prefersReducedMotion = useReducedMotion();
 
-  // Create particle texture for trail (only once)
-  const particleTexture = useMemo(() => createStarTexture(), []);
-
-  // Generate comet path and properties
-  const { path, speed, startTime } = useMemo(() => {
+  // Generate shooting star path and properties
+  const config = useMemo(() => {
     const seed = index * 123.456;
+    const random = (min: number, max: number) => min + (Math.sin(seed + min) * 0.5 + 0.5) * (max - min);
+
+    // Random duration between 3-5 seconds
+    const duration = random(3, 5);
+
+    // Random starting position on the edge of the view
+    const startSide = Math.floor(random(0, 4)); // 0=top, 1=right, 2=bottom, 3=left
+    let startX, startY, startZ;
+
+    // Position starts from edges
+    if (startSide === 0) { // Top
+      startX = random(-50, 50);
+      startY = 35;
+      startZ = random(-20, -10);
+    } else if (startSide === 1) { // Right
+      startX = 50;
+      startY = random(-35, 35);
+      startZ = random(-20, -10);
+    } else if (startSide === 2) { // Bottom
+      startX = random(-50, 50);
+      startY = -35;
+      startZ = random(-20, -10);
+    } else { // Left
+      startX = -50;
+      startY = random(-35, 35);
+      startZ = random(-20, -10);
+    }
+
+    // Calculate diagonal path at ~45 degrees
+    const angle = random(0, Math.PI * 2);
+    const distance = random(60, 100);
+    const endX = startX + Math.cos(angle) * distance;
+    const endY = startY + Math.sin(angle) * distance;
+    const endZ = random(5, 15);
+
     return {
-      // Curved path through space
-      path: {
-        startX: (Math.sin(seed) * 40) - 20,
-        startY: (Math.cos(seed) * 40) - 20,
-        startZ: -50,
-        endX: (Math.sin(seed + 1) * 40) + 20,
-        endY: (Math.cos(seed + 2) * 40) + 20,
-        endZ: 10,
-      },
-      speed: 0.15 + Math.random() * 0.1,
-      startTime: Math.random() * 20, // Stagger start times
+      path: { startX, startY, startZ, endX, endY, endZ },
+      duration,
+      startTime: random(0, 10), // Stagger start times
+      twinkleFreq: random(3, 6), // Twinkle frequency in Hz
     };
   }, [index]);
 
-  // Trail particle positions (updated each frame)
-  const trailPositions = useMemo(() => {
-    const count = 50;
-    return new Float32Array(count * 3);
-  }, []);
+  // Create tapered tail geometry
+  const tailGeometry = useMemo(() => {
+    const segmentCount = 60;
+    const positions = new Float32Array(segmentCount * 3);
+    const colors = new Float32Array(segmentCount * 3);
+    const opacities = new Float32Array(segmentCount);
 
-  const trailOpacities = useMemo(() => {
-    const count = 50;
-    const opacities = new Float32Array(count);
-    // Fade from 1 to 0 along the trail
-    for (let i = 0; i < count; i++) {
-      opacities[i] = (count - i) / count;
+    for (let i = 0; i < segmentCount; i++) {
+      const i3 = i * 3;
+      const t = i / (segmentCount - 1);
+
+      // Position along tail (will be updated in animation)
+      positions[i3] = 0;
+      positions[i3 + 1] = 0;
+      positions[i3 + 2] = -t * 15; // Tail length = 15 units
+
+      // Color gradient: white → purple → transparent
+      if (t < 0.3) {
+        // White to yellow
+        colors[i3] = 1.0;
+        colors[i3 + 1] = 1.0 - t * 0.5;
+        colors[i3 + 2] = 1.0 - t * 2;
+      } else {
+        // Yellow to purple
+        const purpleT = (t - 0.3) / 0.7;
+        colors[i3] = 1.0 - purpleT * 0.4; // R
+        colors[i3 + 1] = 0.85 - purpleT * 0.35; // G
+        colors[i3 + 2] = 0.4 + purpleT * 0.6; // B
+      }
+
+      // Opacity: fade from 1 to 0 along tail
+      opacities[i] = 1.0 - Math.pow(t, 1.5);
     }
-    return opacities;
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    geometry.setAttribute('opacity', new THREE.BufferAttribute(opacities, 1));
+
+    return geometry;
   }, []);
 
   useFrame((state) => {
-    if (!cometRef.current || !trailRef.current || prefersReducedMotion) return;
+    if (!groupRef.current || !headRef.current || !tailRef.current || prefersReducedMotion) return;
 
-    const time = (state.clock.elapsedTime - startTime) * speed;
-    const progress = (time % 20) / 20; // Loop every 20 seconds (adjusted for speed)
+    const elapsed = state.clock.elapsedTime - config.startTime;
+    const cycleTime = config.duration + 2; // Add 2 seconds gap between cycles
+    const t = (elapsed % cycleTime) / config.duration;
 
-    // Smooth easing for more natural movement
-    const eased = progress < 0.5
-      ? 2 * progress * progress
-      : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+    // Only visible during the duration (not during gap)
+    if (t > 1) {
+      groupRef.current.visible = false;
+      return;
+    }
+    groupRef.current.visible = true;
 
-    // Calculate position along curved path
-    const x = path.startX + (path.endX - path.startX) * eased;
-    const y = path.startY + (path.endY - path.startY) * eased + Math.sin(progress * Math.PI * 2) * 5;
-    const z = path.startZ + (path.endZ - path.startZ) * eased;
+    // Linear movement along path
+    const x = config.path.startX + (config.path.endX - config.path.startX) * t;
+    const y = config.path.startY + (config.path.endY - config.path.startY) * t;
+    const z = config.path.startZ + (config.path.endZ - config.path.startZ) * t;
 
-    cometRef.current.position.set(x, y, z);
+    groupRef.current.position.set(x, y, z);
 
-    // Update trail positions
-    const geometry = trailRef.current.geometry;
-    const positions = geometry.attributes.position.array as Float32Array;
+    // Calculate direction for head rotation
+    const dx = config.path.endX - config.path.startX;
+    const dy = config.path.endY - config.path.startY;
+    const dz = config.path.endZ - config.path.startZ;
+    const angle = Math.atan2(dy, dx);
+    groupRef.current.rotation.z = angle;
+    groupRef.current.rotation.y = Math.atan2(dz, Math.sqrt(dx * dx + dy * dy));
 
-    // Shift existing trail positions back
-    for (let i = positions.length - 3; i >= 3; i -= 3) {
-      positions[i] = positions[i - 3];
-      positions[i + 1] = positions[i - 2];
-      positions[i + 2] = positions[i - 1];
+    // Fade in (first 20%)
+    let opacity = 1;
+    if (t < 0.2) {
+      opacity = easeOut(t / 0.2);
+    }
+    // Fade out (last 20%)
+    else if (t > 0.8) {
+      opacity = easeIn(1 - (t - 0.8) / 0.2);
     }
 
-    // Add new position at the front (comet head position)
-    positions[0] = x;
-    positions[1] = y;
-    positions[2] = z;
+    // Twinkling effect
+    const twinkle = Math.sin(elapsed * config.twinkleFreq * Math.PI * 2) * 0.15 + 0.85;
+    const finalOpacity = opacity * twinkle;
 
-    geometry.attributes.position.needsUpdate = true;
+    // Apply opacity to head and tail
+    if (headRef.current.material instanceof THREE.MeshBasicMaterial) {
+      headRef.current.material.opacity = finalOpacity;
+    }
+    if (tailRef.current.material instanceof THREE.PointsMaterial) {
+      tailRef.current.material.opacity = finalOpacity * 0.8;
+    }
+
+    // Scale twinkle
+    const scale = 1 + Math.sin(elapsed * config.twinkleFreq * Math.PI * 2 + 1) * 0.08;
+    headRef.current.scale.set(scale, scale, scale);
   });
 
   return (
-    <group ref={cometRef}>
-      {/* Comet head - glowing sphere */}
-      <mesh>
-        <sphereGeometry args={[0.3, 16, 16]} />
+    <group ref={groupRef}>
+      {/* Shooting star head - elongated cylinder */}
+      <mesh ref={headRef} position={[0, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.15, 0.3, 0.8, 8]} />
         <meshBasicMaterial
-          color="#ffffff"
+          color="#ffffee"
           transparent
-          opacity={0.9}
-        />
-      </mesh>
-
-      {/* Comet glow */}
-      <mesh>
-        <sphereGeometry args={[0.6, 16, 16]} />
-        <meshBasicMaterial
-          color="#9d4edd"
-          transparent
-          opacity={0.3}
+          opacity={1}
           blending={THREE.AdditiveBlending}
         />
       </mesh>
 
-      {/* Particle trail */}
-      <points ref={trailRef}>
-        <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            count={trailPositions.length / 3}
-            array={trailPositions}
-            itemSize={3}
-            args={[trailPositions, 3]}
-          />
-          <bufferAttribute
-            attach="attributes-opacity"
-            count={trailOpacities.length}
-            array={trailOpacities}
-            itemSize={1}
-            args={[trailOpacities, 1]}
-          />
-        </bufferGeometry>
+      {/* Tail - particle stream */}
+      <points ref={tailRef} geometry={tailGeometry}>
         <pointsMaterial
-          size={0.2}
-          map={particleTexture}
-          color="#c77dff"
+          size={0.3}
+          vertexColors
           transparent
-          opacity={0.6}
+          opacity={0.8}
           blending={THREE.AdditiveBlending}
           depthWrite={false}
+          sizeAttenuation
         />
       </points>
     </group>
