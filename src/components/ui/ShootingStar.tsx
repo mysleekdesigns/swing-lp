@@ -12,10 +12,22 @@ export function ShootingStars() {
     const random = (min: number, max: number) =>
       Math.random() * (max - min) + min;
 
+    // Duration between 7-15 seconds
+    const durationMs = random(7000, 15000);
+
+    // Calculate distance based on duration (longer = farther)
+    // 7s = 400px, 15s = 1200px (linear scaling)
+    const minDuration = 7000;
+    const maxDuration = 15000;
+    const minDistance = 400;
+    const maxDistance = 1200;
+    const distance = minDistance + ((durationMs - minDuration) / (maxDuration - minDuration)) * (maxDistance - minDistance);
+
     return {
       top: `${random(-20, 80)}%`,
       left: `${random(-10, 60)}%`,
-      duration: `${random(5000, 7000)}ms`,
+      duration: `${durationMs}ms`,
+      distance: `${distance}px`,
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStar]); // Regenerate when currentStar changes
@@ -48,6 +60,7 @@ export function ShootingStars() {
           top: config.top,
           left: config.left,
           '--star-duration': config.duration,
+          '--star-distance': config.distance,
         } as React.CSSProperties}
       >
         <div className="shooting-star-glow shooting-star-glow-1" />
