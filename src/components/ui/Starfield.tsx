@@ -860,6 +860,191 @@ function Constellations() {
   );
 }
 
+// Spiral Galaxy component - particle-based procedural spiral galaxy
+function SpiralGalaxy() {
+  const meshRef = useRef<THREE.Points>(null);
+  const prefersReducedMotion = useReducedMotion();
+
+  // Create star texture (reuse existing function)
+  const starTexture = useMemo(() => createStarTexture(), []);
+
+  // Galaxy configuration
+  const config = useMemo(() => ({
+    particleCount: 12000,
+    radius: 6,
+    branches: 2,        // Number of spiral arms (2 for realistic appearance)
+    spin: 2.5,         // Spiral tightness (increased for tighter spirals)
+    randomness: 0.4,   // Particle spread (increased for more natural look)
+    randomnessPower: 4, // Concentration toward arms (higher = more concentrated)
+    // Color gradient: Yellow/orange core → white → blue arms
+    coreColor: new THREE.Color('#FFB366'),      // Orange core
+    innerColor: new THREE.Color('#FFE599'),     // Yellow inner
+    midColor: new THREE.Color('#FFFFFF'),       // White mid-region
+    outerColor: new THREE.Color('#6699FF'),     // Blue outer arms
+    edgeColor: new THREE.Color('#88AAFF')       // Light blue edges
+  }), []);
+
+  // Simple noise function for dust lanes (pseudo-random based on position)
+  const simpleNoise = (x: number, y: number, z: number): number => {
+    const n = Math.sin(x * 12.9898 + y * 78.233 + z * 37.719) * 43758.5453123;
+    return n - Math.floor(n);
+  };
+
+  // Generate spiral galaxy particles
+  const galaxyData = useMemo(() => {
+    const positions = new Float32Array(config.particleCount * 3);
+    const colors = new Float32Array(config.particleCount * 4); // RGBA for opacity
+    const sizes = new Float32Array(config.particleCount);
+
+    for (let i = 0; i < config.particleCount; i++) {
+      const i3 = i * 3;
+      const i4 = i * 4;
+
+      // Normalized position (0 to 1) - use square root for exponential density
+      const norm = Math.sqrt(i / config.particleCount);
+
+      // Distance from center (0 to radius) - exponential falloff
+      const distance = norm * config.radius;
+
+      // Spin angle - creates the spiral effect
+      const spinAngle = distance * config.spin;
+
+      // Branch angle - which spiral arm this particle belongs to
+      const branchAngle = ((i % config.branches) / config.branches) * Math.PI * 2;
+
+      // Total angle combines branch position and spiral rotation
+      const angle = branchAngle + spinAngle;
+
+      // Randomness for natural distribution
+      // Particles closer to arms have less randomness (more concentrated)
+      const randomX = Math.pow(Math.random(), config.randomnessPower) *
+                     (Math.random() < 0.5 ? 1 : -1) *
+                     config.randomness * distance;
+      const randomY = Math.pow(Math.random(), config.randomnessPower) *
+                     (Math.random() < 0.5 ? 1 : -1) *
+                     config.randomness * distance;
+      const randomZ = Math.pow(Math.random(), config.randomnessPower) *
+                     (Math.random() < 0.5 ? 1 : -1) *
+                     config.randomness * distance * 0.3; // Flatter galaxy
+
+      // Position in spiral arm (polar to Cartesian)
+      const x = Math.cos(angle) * distance + randomX;
+      const y = randomY * 0.3; // Flatten the galaxy (smaller Y spread)
+      const z = Math.sin(angle) * distance + randomZ;
+
+      positions[i3] = x;
+      positions[i3 + 1] = y;
+      positions[i3 + 2] = z;
+
+      // Enhanced color gradient: core (orange) → inner (yellow) → mid (white) → outer (blue) → edge (light blue)
+      let mixedColor = new THREE.Color();
+
+      if (norm < 0.15) {
+        // Core: Orange to yellow (0 - 15%)
+        const t = norm / 0.15;
+        mixedColor = config.coreColor.clone().lerp(config.innerColor, t);
+      } else if (norm < 0.4) {
+        // Inner to mid: Yellow to white (15% - 40%)
+        const t = (norm - 0.15) / 0.25;
+        mixedColor = config.innerColor.clone().lerp(config.midColor, t);
+      } else if (norm < 0.7) {
+        // Mid to outer: White to blue (40% - 70%)
+        const t = (norm - 0.4) / 0.3;
+        mixedColor = config.midColor.clone().lerp(config.outerColor, t);
+      } else {
+        // Outer to edge: Blue to light blue (70% - 100%)
+        const t = (norm - 0.7) / 0.3;
+        mixedColor = config.outerColor.clone().lerp(config.edgeColor, t);
+      }
+
+      // Add slight color variation using noise
+      const colorNoise = simpleNoise(x * 0.5, y * 0.5, z * 0.5) * 0.1;
+      mixedColor.r = Math.min(1, Math.max(0, mixedColor.r + colorNoise));
+      mixedColor.g = Math.min(1, Math.max(0, mixedColor.g + colorNoise));
+      mixedColor.b = Math.min(1, Math.max(0, mixedColor.b + colorNoise));
+
+      colors[i4] = mixedColor.r;
+      colors[i4 + 1] = mixedColor.g;
+      colors[i4 + 2] = mixedColor.b;
+
+      // Dust lanes: Calculate opacity based on position between spiral arms
+      // Particles between arms should be darker (dust lanes)
+      const armOffset = (angle - branchAngle) % (Math.PI * 2 / config.branches);
+      const normalizedArmOffset = Math.abs(armOffset / (Math.PI / config.branches));
+
+      // Dust lane effect - darker between arms
+      let opacity = 1.0;
+      if (distance > 1.0 && normalizedArmOffset > 0.3) {
+        // Add dust lanes in outer regions between spiral arms
+        const dustIntensity = (normalizedArmOffset - 0.3) / 0.7;
+        const dustNoise = simpleNoise(x * 2, y * 2, z * 2);
+        opacity = 1.0 - (dustIntensity * 0.6 * dustNoise);
+      }
+
+      // Brighter core
+      if (norm < 0.2) {
+        opacity *= 1.2 + (1 - norm / 0.2) * 0.3;
+      }
+
+      colors[i4 + 3] = Math.min(1, Math.max(0.3, opacity));
+
+      // Size variation - larger particles near the core, smaller at edges
+      const baseSize = (1 - norm * 0.8); // 1.0 at center → 0.2 at edge
+      const sizeVariation = Math.random() * 0.3;
+      sizes[i] = baseSize * 0.8 + sizeVariation;
+    }
+
+    return { positions, colors, sizes, count: config.particleCount };
+  }, [config]);
+
+  // Gentle rotation animation
+  useFrame((state) => {
+    if (!prefersReducedMotion && meshRef.current) {
+      meshRef.current.rotation.y = state.clock.elapsedTime * 0.02;
+      // Slight tilt for visual interest
+      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.01) * 0.1 + 0.3;
+    }
+  });
+
+  return (
+    <points ref={meshRef} position={[-35, 24, -50]}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          count={galaxyData.count}
+          array={galaxyData.positions}
+          itemSize={3}
+          args={[galaxyData.positions, 3]}
+        />
+        <bufferAttribute
+          attach="attributes-color"
+          count={galaxyData.count}
+          array={galaxyData.colors}
+          itemSize={4}
+          args={[galaxyData.colors, 4]}
+        />
+        <bufferAttribute
+          attach="attributes-size"
+          count={galaxyData.count}
+          array={galaxyData.sizes}
+          itemSize={1}
+          args={[galaxyData.sizes, 1]}
+        />
+      </bufferGeometry>
+      <pointsMaterial
+        size={0.25}
+        map={starTexture}
+        vertexColors
+        transparent
+        opacity={1.0}
+        sizeAttenuation
+        blending={THREE.AdditiveBlending}
+        depthWrite={false}
+      />
+    </points>
+  );
+}
+
 // Milky Way component - shader-based realistic galaxy as seen from Earth
 function MilkyWay() {
   const meshRef = useRef<THREE.Mesh>(null);
