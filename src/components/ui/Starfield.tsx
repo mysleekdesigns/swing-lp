@@ -860,6 +860,196 @@ function Constellations() {
   );
 }
 
+// Milky Way component - shader-based realistic galaxy as seen from Earth
+function MilkyWay() {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const prefersReducedMotion = useReducedMotion();
+
+  // Vertex shader - passes UV coordinates to fragment shader
+  const vertexShader = `
+    varying vec2 vUv;
+    varying vec3 vPosition;
+
+    void main() {
+      vUv = uv;
+      vPosition = position;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `;
+
+  // Fragment shader - creates Milky Way with Simplex noise and FBM
+  const fragmentShader = `
+    uniform float uTime;
+    varying vec2 vUv;
+    varying vec3 vPosition;
+
+    // Simplex 2D noise function
+    vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+
+    float snoise(vec2 v) {
+      const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+                -0.577350269189626, 0.024390243902439);
+      vec2 i  = floor(v + dot(v, C.yy));
+      vec2 x0 = v - i + dot(i, C.xx);
+      vec2 i1;
+      i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+      vec4 x12 = x0.xyxy + C.xxzz;
+      x12.xy -= i1;
+      i = mod(i, 289.0);
+      vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0))
+        + i.x + vec3(0.0, i1.x, 1.0));
+      vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
+        dot(x12.zw,x12.zw)), 0.0);
+      m = m*m;
+      m = m*m;
+      vec3 x = 2.0 * fract(p * C.www) - 1.0;
+      vec3 h = abs(x) - 0.5;
+      vec3 ox = floor(x + 0.5);
+      vec3 a0 = x - ox;
+      m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
+      vec3 g;
+      g.x = a0.x * x0.x + h.x * x0.y;
+      g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+      return 130.0 * dot(m, g);
+    }
+
+    // Fractal Brownian Motion (FBM) - layers noise for cloud-like effect
+    float fbm(vec2 p) {
+      float value = 0.0;
+      float amplitude = 0.5;
+      float frequency = 1.0;
+
+      for(int i = 0; i < 6; i++) {
+        value += amplitude * snoise(p * frequency);
+        frequency *= 2.0;  // Lacunarity
+        amplitude *= 0.5;  // Gain
+      }
+
+      return value;
+    }
+
+    void main() {
+      // Create diagonal band from upper-left to lower-right
+      vec2 uv = vUv;
+
+      // Rotate UV coordinates to create diagonal arc (30 degrees)
+      float angle = -0.5236; // -30 degrees in radians
+      vec2 center = vec2(0.5, 0.5);
+      vec2 rotatedUv = uv - center;
+      float cosA = cos(angle);
+      float sinA = sin(angle);
+      rotatedUv = vec2(
+        rotatedUv.x * cosA - rotatedUv.y * sinA,
+        rotatedUv.x * sinA + rotatedUv.y * cosA
+      );
+      rotatedUv += center;
+
+      // Distance from galactic band center (vertical distance in rotated space)
+      float distFromBand = abs(rotatedUv.y - 0.5);
+
+      // Galactic core position (lower-right in original space)
+      vec2 corePos = vec2(0.7, 0.3);
+      float distFromCore = distance(uv, corePos);
+
+      // Base galaxy structure using FBM
+      float noise1 = fbm(rotatedUv * 3.0 + uTime * 0.01);
+      float noise2 = fbm(rotatedUv * 6.0 - uTime * 0.015);
+      float noise3 = fbm(rotatedUv * 12.0);
+
+      // Create band shape - denser in center, fading to edges
+      float bandShape = smoothstep(0.3, 0.0, distFromBand);
+      bandShape *= (0.5 + 0.5 * noise1);
+
+      // Galactic core brightness
+      float coreBrightness = smoothstep(0.4, 0.0, distFromCore);
+      coreBrightness = pow(coreBrightness, 0.8);
+
+      // Dark dust lanes (subtractive noise)
+      float dustLanes = smoothstep(0.3, 0.7, noise2);
+      dustLanes *= smoothstep(0.4, 0.6, noise3);
+
+      // Combine structure
+      float density = bandShape * (1.0 - dustLanes * 0.6);
+      density += coreBrightness * 0.8;
+      density = clamp(density, 0.0, 1.0);
+
+      // Color based on position and density
+      vec3 color = vec3(0.0);
+
+      // Galactic core colors (warm: yellow, orange, pink, magenta)
+      vec3 coreColorYellow = vec3(1.0, 0.92, 0.6);   // #FFEB99
+      vec3 coreColorOrange = vec3(1.0, 0.6, 0.33);   // #FF9955
+      vec3 coreColorPink = vec3(1.0, 0.53, 0.67);    // #FF88AA
+      vec3 coreColorMagenta = vec3(0.8, 0.4, 0.87);  // #CC66DD
+
+      // Outer region colors (cool: blue, purple, white)
+      vec3 outerColorBlue = vec3(0.33, 0.53, 0.87);  // #5588DD
+      vec3 outerColorPurple = vec3(0.53, 0.4, 0.8);  // #8866CC
+      vec3 outerColorWhite = vec3(0.8, 0.87, 1.0);   // #CCDDFF
+
+      // Mix core colors
+      vec3 coreColor = mix(coreColorYellow, coreColorOrange, noise1 * 0.5 + 0.5);
+      coreColor = mix(coreColor, coreColorPink, noise2 * 0.3 + 0.3);
+      coreColor = mix(coreColor, coreColorMagenta, noise3 * 0.2);
+
+      // Mix outer colors
+      vec3 outerColor = mix(outerColorBlue, outerColorPurple, noise1 * 0.5 + 0.5);
+      outerColor = mix(outerColor, outerColorWhite, noise2 * 0.3);
+
+      // Blend based on distance from core
+      float coreInfluence = smoothstep(0.6, 0.2, distFromCore);
+      color = mix(outerColor, coreColor, coreInfluence);
+
+      // Apply density and add subtle variation
+      color *= density;
+
+      // Final opacity - more subtle overall
+      float alpha = density * (0.15 + coreBrightness * 0.3);
+      alpha = clamp(alpha, 0.0, 0.5);
+
+      // Fade edges smoothly
+      float edgeFade = smoothstep(0.0, 0.1, uv.x) *
+                       smoothstep(1.0, 0.9, uv.x) *
+                       smoothstep(0.0, 0.1, uv.y) *
+                       smoothstep(1.0, 0.9, uv.y);
+      alpha *= edgeFade;
+
+      gl_FragColor = vec4(color, alpha);
+    }
+  `;
+
+  // Shader uniforms
+  const uniforms = useMemo(
+    () => ({
+      uTime: { value: 0 }
+    }),
+    []
+  );
+
+  // Animate time uniform
+  useFrame((state) => {
+    if (meshRef.current && !prefersReducedMotion) {
+      const material = meshRef.current.material as THREE.ShaderMaterial;
+      material.uniforms.uTime.value = state.clock.elapsedTime;
+    }
+  });
+
+  return (
+    <mesh ref={meshRef} position={[-25, 20, -40]}>
+      <planeGeometry args={[60, 30]} />
+      <shaderMaterial
+        uniforms={uniforms}
+        vertexShader={vertexShader}
+        fragmentShader={fragmentShader}
+        transparent
+        blending={THREE.AdditiveBlending}
+        depthWrite={false}
+        side={THREE.DoubleSide}
+      />
+    </mesh>
+  );
+}
+
 // Main Starfield component
 export function Starfield() {
   const [isMounted, setIsMounted] = useState(false);
@@ -885,6 +1075,9 @@ export function Starfield() {
         dpr={[1, 2]} // Limit pixel ratio for performance
       >
         <color attach="background" args={['#000000']} />
+
+        {/* Milky Way Galaxy Band */}
+        <MilkyWay />
 
         {/* Background Stars */}
         <Stars />
