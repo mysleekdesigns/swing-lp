@@ -20,10 +20,12 @@ export function StatCard({ label, value, index }: StatCardProps) {
       className="group relative"
     >
       {/* Clean card */}
-      <div className="relative h-full bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border/50 hover:border-primary/30 transition-colors">
+      <div className="relative h-full bg-card/50 backdrop-blur-sm rounded-xl p-6 border border-border/50 hover:border-primary/30 transition-colors text-center">
         {/* Value */}
-        <div className="text-3xl sm:text-4xl font-bold mb-2 text-foreground">
-          <AnimatedCounter value={value} duration={2} />
+        <div className="text-3xl sm:text-4xl font-bold mb-2">
+          <span className="bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent">
+            <AnimatedCounter value={value} duration={2} />
+          </span>
         </div>
 
         {/* Label */}
