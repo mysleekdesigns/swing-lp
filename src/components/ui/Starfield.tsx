@@ -38,6 +38,78 @@ function createStarTexture() {
   return texture;
 }
 
+// Constellation data - defining positions and connections for recognizable star patterns
+interface Constellation {
+  name: string;
+  stars: { x: number; y: number; z: number }[];
+  connections: [number, number][]; // Pairs of star indices to connect
+}
+
+const CONSTELLATIONS: Constellation[] = [
+  {
+    name: 'Orion',
+    stars: [
+      { x: -15, y: 12, z: -25 },    // Betelgeuse (left shoulder)
+      { x: -13.5, y: 10.5, z: -25 },    // Belt star 1
+      { x: -14, y: 9.8, z: -25 },    // Belt star 2
+      { x: -14.5, y: 9, z: -25 },    // Belt star 3
+      { x: -16, y: 7, z: -25 },   // Rigel (left foot)
+      { x: -12, y: 7, z: -25 },    // Right foot
+      { x: -12.5, y: 12, z: -25 },    // Right shoulder
+    ],
+    connections: [
+      [0, 1], [1, 2], [2, 3], [3, 4], // Left side
+      [6, 2], [2, 5], // Right side
+      [0, 6], // Shoulders
+    ],
+  },
+  {
+    name: 'Big Dipper',
+    stars: [
+      { x: 12, y: 10, z: -28 },
+      { x: 13.5, y: 11, z: -28 },
+      { x: 15, y: 11, z: -28 },
+      { x: 16, y: 9.5, z: -28 },
+      { x: 15, y: 7.5, z: -28 },
+      { x: 13.5, y: 6.5, z: -28 },
+      { x: 12, y: 7.5, z: -28 },
+    ],
+    connections: [
+      [0, 1], [1, 2], [2, 3], // Cup
+      [3, 4], [4, 5], [5, 6], // Handle
+    ],
+  },
+  {
+    name: 'Cassiopeia',
+    stars: [
+      { x: -8, y: 14, z: -22 },
+      { x: -9.5, y: 12.5, z: -22 },
+      { x: -11, y: 14, z: -22 },
+      { x: -12.5, y: 12.5, z: -22 },
+      { x: -14, y: 14, z: -22 },
+    ],
+    connections: [
+      [0, 1], [1, 2], [2, 3], [3, 4], // W shape
+    ],
+  },
+  {
+    name: 'Leo',
+    stars: [
+      { x: 10, y: 13, z: -26 },   // Regulus
+      { x: 11.5, y: 14, z: -26 },
+      { x: 13, y: 13, z: -26 },
+      { x: 14.5, y: 11.5, z: -26 },
+      { x: 13, y: 10, z: -26 },
+      { x: 11.5, y: 10.5, z: -26 },
+      { x: 10, y: 11.5, z: -26 },
+    ],
+    connections: [
+      [0, 1], [1, 2], [2, 3], // Back
+      [3, 4], [4, 5], [5, 6], [6, 0], // Body loop
+    ],
+  },
+];
+
 // Stars component - thousands of stars using BufferGeometry
 function Stars() {
   const meshRef = useRef<THREE.Points>(null);
@@ -359,6 +431,165 @@ function Comet({ index }: { index: number }) {
   );
 }
 
+// Constellations component - renders astrology constellation patterns with connecting lines
+function Constellations() {
+  const starsRef = useRef<THREE.Points>(null);
+  const linesRef = useRef<THREE.LineSegments>(null);
+  const prefersReducedMotion = useReducedMotion();
+
+  // Create star texture for constellation stars
+  const starTexture = useMemo(() => createStarTexture(), []);
+
+  // Prepare constellation stars and lines data
+  const constellationData = useMemo(() => {
+    const allStars: { x: number; y: number; z: number }[] = [];
+    const allLines: { start: number; end: number }[] = [];
+
+    let currentStarIndex = 0;
+
+    // Process each constellation
+    CONSTELLATIONS.forEach((constellation) => {
+      const constellationStartIndex = currentStarIndex;
+
+      // Add all stars from this constellation
+      constellation.stars.forEach((star) => {
+        allStars.push(star);
+        currentStarIndex++;
+      });
+
+      // Add connections for this constellation (offset by constellation's start index)
+      constellation.connections.forEach(([start, end]) => {
+        allLines.push({
+          start: constellationStartIndex + start,
+          end: constellationStartIndex + end,
+        });
+      });
+    });
+
+    // Create buffers for stars
+    const starCount = allStars.length;
+    const starPositions = new Float32Array(starCount * 3);
+    const starColors = new Float32Array(starCount * 3);
+    const starSizes = new Float32Array(starCount);
+
+    allStars.forEach((star, i) => {
+      const i3 = i * 3;
+      starPositions[i3] = star.x;
+      starPositions[i3 + 1] = star.y;
+      starPositions[i3 + 2] = star.z;
+
+      // Golden/warm white color for constellation stars
+      starColors[i3] = 1.0;      // R
+      starColors[i3 + 1] = 0.95; // G
+      starColors[i3 + 2] = 0.85; // B
+
+      // Slightly larger size for constellation stars (subtly bigger than background)
+      starSizes[i] = 0.5 + Math.random() * 0.2; // 0.5 to 0.7
+    });
+
+    // Create buffers for lines
+    const linePositions = new Float32Array(allLines.length * 6); // 2 points per line, 3 coords per point
+
+    allLines.forEach((line, i) => {
+      const i6 = i * 6;
+      const startStar = allStars[line.start];
+      const endStar = allStars[line.end];
+
+      // Start point
+      linePositions[i6] = startStar.x;
+      linePositions[i6 + 1] = startStar.y;
+      linePositions[i6 + 2] = startStar.z;
+
+      // End point
+      linePositions[i6 + 3] = endStar.x;
+      linePositions[i6 + 4] = endStar.y;
+      linePositions[i6 + 5] = endStar.z;
+    });
+
+    return {
+      starPositions,
+      starColors,
+      starSizes,
+      starCount,
+      linePositions,
+      lineCount: allLines.length,
+    };
+  }, []);
+
+  // Gentle rotation animation
+  useFrame((state) => {
+    if (!prefersReducedMotion && starsRef.current && linesRef.current) {
+      // Very slow rotation to keep constellations recognizable
+      const rotation = state.clock.elapsedTime * 0.002;
+      starsRef.current.rotation.y = rotation;
+      starsRef.current.rotation.x = rotation * 0.5;
+      linesRef.current.rotation.y = rotation;
+      linesRef.current.rotation.x = rotation * 0.5;
+    }
+  });
+
+  return (
+    <group>
+      {/* Constellation Stars */}
+      <points ref={starsRef} frustumCulled={false}>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            count={constellationData.starCount}
+            array={constellationData.starPositions}
+            itemSize={3}
+            args={[constellationData.starPositions, 3]}
+          />
+          <bufferAttribute
+            attach="attributes-color"
+            count={constellationData.starCount}
+            array={constellationData.starColors}
+            itemSize={3}
+            args={[constellationData.starColors, 3]}
+          />
+          <bufferAttribute
+            attach="attributes-size"
+            count={constellationData.starCount}
+            array={constellationData.starSizes}
+            itemSize={1}
+            args={[constellationData.starSizes, 1]}
+          />
+        </bufferGeometry>
+        <pointsMaterial
+          size={0.25}
+          map={starTexture}
+          vertexColors
+          transparent
+          opacity={1.0}
+          sizeAttenuation
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </points>
+
+      {/* Constellation Lines - Very Faint */}
+      <lineSegments ref={linesRef} frustumCulled={false}>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            count={constellationData.lineCount * 2}
+            array={constellationData.linePositions}
+            itemSize={3}
+            args={[constellationData.linePositions, 3]}
+          />
+        </bufferGeometry>
+        <lineBasicMaterial
+          color="#e8d5b7"
+          transparent
+          opacity={0.25}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </lineSegments>
+    </group>
+  );
+}
+
 // Main Starfield component
 export function Starfield() {
   const [isMounted, setIsMounted] = useState(false);
@@ -385,8 +616,11 @@ export function Starfield() {
       >
         <color attach="background" args={['#000000']} />
 
-        {/* Stars */}
+        {/* Background Stars */}
         <Stars />
+
+        {/* Constellation Stars with Connecting Lines */}
+        <Constellations />
       </Canvas>
 
       {/* CSS-based shooting stars */}
