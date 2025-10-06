@@ -191,6 +191,12 @@
     z-index: 0;
     pointer-events: none;
     overflow: hidden;
+    display: none; /* Hidden in light mode by default */
+  }
+
+  /* Show starfield only in dark mode */
+  .dark .starfield-container {
+    display: block;
   }
 
   .starfield-container::after {
@@ -204,7 +210,7 @@
       to bottom,
       transparent 0%,
       transparent 30%,
-      oklch(0.2046 0 0) 60%
+      var(--color-background) 60%
     );
     pointer-events: none;
     z-index: 1;
@@ -2201,9 +2207,9 @@
       to bottom,
       transparent 0%,
       transparent 20%,
-      oklch(0.2046 0 0 / 0.3) 40%,
-      oklch(0.2046 0 0 / 0.7) 60%,
-      oklch(0.2046 0 0 / 1) 80%
+      color-mix(in oklch, var(--color-background) 30%, transparent) 40%,
+      color-mix(in oklch, var(--color-background) 70%, transparent) 60%,
+      var(--color-background) 80%
     );
   }
 
@@ -2254,7 +2260,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px oklch(0.2046 0 0) inset !important;
-  -webkit-text-fill-color: oklch(0.9843 0 0) !important;
+  -webkit-box-shadow: 0 0 0 30px var(--color-card) inset !important;
+  -webkit-text-fill-color: var(--color-foreground) !important;
   transition: background-color 5000s ease-in-out 0s;
 }

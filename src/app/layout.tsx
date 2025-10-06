@@ -17,11 +17,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                localStorage.removeItem('theme');
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
       <body className={`${inter.className} bg-gradient-to-br from-primary/10 via-background to-accent/10`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          enableSystem
+          defaultTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
           {children}
