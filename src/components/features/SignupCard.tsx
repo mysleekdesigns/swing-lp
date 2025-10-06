@@ -94,8 +94,8 @@ export function SignupCard() {
       {/* Glass Morphism Card */}
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-accent/10 via-background/20 to-background/30 backdrop-blur-md border border-accent/30 shadow-[0_0_80px_-12px_rgba(0,0,0,0.5),0_8px_32px_-8px_rgba(0,0,0,0.3),inset_0_1px_0_0_rgba(255,255,255,0.05)]">
         {/* Decorative gradient overlays */}
-        <div className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-50" style={{ background: 'radial-gradient(circle, oklch(0.4732 0.1247 46.2007 / 0.1) 0%, oklch(0.4732 0.1247 46.2007 / 0.05) 50%, transparent 100%)' }} />
-        <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full blur-3xl opacity-40" style={{ background: 'radial-gradient(circle, oklch(0.7686 0.1647 70.0804 / 0.1) 0%, oklch(0.7686 0.1647 70.0804 / 0.05) 50%, transparent 100%)' }} />
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl opacity-50 bg-[radial-gradient(circle,color-mix(in_oklch,var(--color-accent)_10%,transparent)_0%,color-mix(in_oklch,var(--color-accent)_5%,transparent)_50%,transparent_100%)]" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full blur-3xl opacity-40 bg-[radial-gradient(circle,color-mix(in_oklch,var(--color-primary)_10%,transparent)_0%,color-mix(in_oklch,var(--color-primary)_5%,transparent)_50%,transparent_100%)]" />
 
         {/* Card Content */}
         <div className="relative p-6 sm:p-8 md:p-10">

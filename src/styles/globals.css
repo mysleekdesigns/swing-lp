@@ -203,10 +203,10 @@
     background: linear-gradient(
       to bottom,
       transparent 0%,
-      oklch(0.7686 0.1647 70.0804 / 0.01) 30%,
-      oklch(0.7686 0.1647 70.0804 / 0.03) 50%,
-      oklch(0.7686 0.1647 70.0804 / 0.06) 70%,
-      oklch(0.7686 0.1647 70.0804 / 0.10) 100%
+      color-mix(in oklch, var(--color-primary) 1%, transparent) 30%,
+      color-mix(in oklch, var(--color-primary) 3%, transparent) 50%,
+      color-mix(in oklch, var(--color-primary) 6%, transparent) 70%,
+      color-mix(in oklch, var(--color-primary) 10%, transparent) 100%
     );
   }
 
