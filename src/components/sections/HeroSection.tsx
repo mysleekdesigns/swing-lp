@@ -52,7 +52,7 @@ export function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex items-center justify-center lg:justify-start gap-6 text-sm text-muted-foreground"
+              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6 text-sm text-muted-foreground"
             >
               <div className="flex items-center gap-2">
                 <div className="h-2 w-2 rounded-full bg-primary" />
