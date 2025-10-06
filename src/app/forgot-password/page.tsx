@@ -13,10 +13,10 @@ export default function ForgotPasswordPage() {
       <Starfield />
       <main className="relative min-h-screen z-10">
         {/* Hero Section with Forgot Password Form */}
-        <section className="relative flex min-h-screen lg:min-h-0 items-center justify-center overflow-hidden">
+        <section className="relative flex items-center justify-center overflow-hidden py-8 lg:py-12">
           {/* Content */}
           <div className="relative z-10 w-full">
-            <div className="mx-auto max-w-[1600px] px-6 py-12 md:px-12 md:py-14 lg:px-16 lg:py-16 xl:px-20 xl:py-12 2xl:px-24 2xl:py-16">
+            <div className="mx-auto max-w-[1600px] px-4 md:px-8 lg:px-16 xl:px-20 2xl:px-24">
               <div className="grid md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 xl:gap-16 items-center">
                 {/* Left Column - Brand Messaging */}
                 <div className="text-left space-y-6 lg:space-y-7 xl:space-y-8 md:pr-8 lg:pr-12">
@@ -49,7 +49,7 @@ export default function ForgotPasswordPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="text-base sm:text-lg text-muted-foreground max-w-lg"
+                  className="text-base sm:text-lg text-muted-foreground max-w-lg mx-auto lg:mx-0"
                 >
                   Forgot your password? No problem. We&apos;ll help you get back to exploring your desires in just a few clicks.
                 </motion.p>
@@ -104,8 +104,8 @@ export default function ForgotPasswordPage() {
         </section>
 
         {/* Help Section */}
-        <section className="relative py-12 md:py-14 lg:py-16 xl:py-12 2xl:py-16">
-          <div className="relative mx-auto max-w-[1600px] px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
+        <section className="relative py-8 lg:py-16 xl:py-12 2xl:py-16">
+          <div className="relative mx-auto max-w-[1600px] px-4 md:px-8 lg:px-16 xl:px-20 2xl:px-24">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
