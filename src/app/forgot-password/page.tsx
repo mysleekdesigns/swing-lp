@@ -39,7 +39,7 @@ export default function ForgotPasswordPage() {
                   transition={{ duration: 0.5, delay: 0.1 }}
                   className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight"
                 >
-                  <span className="bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent">
+                  <span className="text-black">
                     We&apos;ve Got You Covered
                   </span>
                 </motion.h1>
@@ -114,7 +114,7 @@ export default function ForgotPasswordPage() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-                Need More <span className="bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent">Help</span>?
+                Need More <span className="text-black">Help</span>?
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Here are some common solutions to access your account

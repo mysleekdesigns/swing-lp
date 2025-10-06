@@ -22,7 +22,7 @@ export default function CTASection() {
             <div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
                 Ready to Explore Your{' '}
-                <span className="bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent">
+                <span className="text-black">
                   Desires?
                 </span>
               </h2>

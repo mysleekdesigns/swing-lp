@@ -32,7 +32,7 @@ export function HeroSection() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight"
             >
-              <span className="bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent">
+              <span className="text-black">
                 Where Desire Finds Its Exquisite New Home
               </span>
             </motion.h1>

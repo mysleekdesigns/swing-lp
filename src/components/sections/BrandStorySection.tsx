@@ -24,7 +24,7 @@ export function BrandStorySection() {
 
             {/* Heading */}
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
-              <span className="bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent">
+              <span className="text-black">
                 A New Era
               </span>
               <br />

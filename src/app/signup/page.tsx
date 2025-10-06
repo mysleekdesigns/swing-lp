@@ -38,7 +38,7 @@ export default function SignupPage() {
                   transition={{ duration: 0.5, delay: 0.1 }}
                   className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight"
                 >
-                  <span className="bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent">
+                  <span className="text-black">
                     Where Desire Finds Its Exquisite New Home
                   </span>
                 </motion.h1>
@@ -113,7 +113,7 @@ export default function SignupPage() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-                Why Join <span className="bg-gradient-to-r from-primary to-accent-foreground bg-clip-text text-transparent">Swing</span>?
+                Why Join <span className="text-black">Swing</span>?
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Experience the most trusted platform for alternative lifestyle connections
