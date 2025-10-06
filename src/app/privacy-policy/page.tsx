@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Footer from '@/components/layout/Footer';
 import { SwingLogo } from '@/components/ui/SwingLogo';
+import { Starfield } from '@/components/ui/Starfield';
 
 export default function PrivacyPolicyPage() {
   const currentDate = new Date().toLocaleDateString('en-US', {
@@ -14,7 +15,8 @@ export default function PrivacyPolicyPage() {
 
   return (
     <>
-      <main className="relative min-h-screen">
+      <Starfield />
+      <main className="relative min-h-screen z-10">
         {/* Hero Section */}
         <section className="relative py-8 md:py-10 lg:py-12">
           <div className="relative mx-auto max-w-[1600px] px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-24">

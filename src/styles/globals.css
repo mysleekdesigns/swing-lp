@@ -2248,3 +2248,13 @@
     }
   }
 }
+
+/* Autofill styling - maintain background color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px oklch(0.2046 0 0) inset !important;
+  -webkit-text-fill-color: oklch(0.9843 0 0) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}

@@ -5,11 +5,13 @@ import Link from 'next/link';
 import { SignupCard } from '@/components/features/SignupCard';
 import { SwingLogo } from '@/components/ui/SwingLogo';
 import Footer from '@/components/layout/Footer';
+import { Starfield } from '@/components/ui/Starfield';
 
 export default function SignupPage() {
   return (
     <>
-      <main className="relative min-h-screen">
+      <Starfield />
+      <main className="relative min-h-screen z-10">
         {/* Hero Section with Signup Form */}
         <section className="relative flex min-h-screen lg:min-h-0 items-center justify-center overflow-hidden">
           {/* Content */}
