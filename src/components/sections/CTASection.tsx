@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 export default function CTASection() {
   return (
-    <section className="relative py-4 sm:py-6 md:py-8 lg:py-12 xl:py-16 2xl:py-20 overflow-hidden">
+    <section className="relative py-4 sm:py-6 md:py-8 lg:py-6 xl:py-8 2xl:py-10 overflow-hidden">
       {/* Content Container */}
       <div className="relative mx-auto max-w-[1600px] px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <div className="grid gap-16 md:gap-20 lg:grid-cols-2 lg:gap-24 xl:gap-32 2xl:gap-40">
@@ -21,14 +21,15 @@ export default function CTASection() {
             {/* Heading */}
             <div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-6">
-                Ready to Explore Your{' '}
                 <span className="text-black">
-                  Desires?
+                  Looking for an Alternative Lifestyle?
                 </span>
               </h2>
 
               <p className="text-lg sm:text-xl text-muted-foreground">
-                Join the world&apos;s largest alternative lifestyle dating community. Ignite connections, fulfill fantasies, and experience desire in its exquisite new home.
+                Our passion for your pleasure drives this daring leap. While <a href="https://sls.com" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:text-primary/80 transition-colors">SLS.com</a> and <a href="https://swinglifestyle.com" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:text-primary/80 transition-colors">Swinglifestyle.com</a> leave behind a legacy of thrilling encounters, the future burns brighter than ever, centered on the exquisite simplicity and impactful identity of <a href="https://swing.com" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:text-primary/80 transition-colors">Swing.com</a> - your new, intoxicating central hub for connecting, exploring, and living the lifestyle you crave. Get ready to swing.
+                <br /><br />
+                All of your fantasies are inside, in one place.
               </p>
             </div>
 
