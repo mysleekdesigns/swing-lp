@@ -127,7 +127,7 @@ export function SignupCard() {
                 Username
               </Label>
               <div className="relative">
-                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-primary">
                   <User className="w-5 h-5" />
                 </div>
                 <motion.div
@@ -176,7 +176,7 @@ export function SignupCard() {
                 Email
               </Label>
               <div className="relative">
-                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-primary">
                   <Mail className="w-5 h-5" />
                 </div>
                 <motion.div
@@ -225,7 +225,7 @@ export function SignupCard() {
                 Password
               </Label>
               <div className="relative">
-                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-primary">
                   <Lock className="w-5 h-5" />
                 </div>
                 <motion.div
@@ -274,7 +274,7 @@ export function SignupCard() {
                 Confirm Password
               </Label>
               <div className="relative">
-                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-primary">
                   <Lock className="w-5 h-5" />
                 </div>
                 <motion.div

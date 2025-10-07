@@ -126,7 +126,7 @@ export function ForgotPasswordCard() {
                   whileTap={{ scale: 0.98 }}
                   className="w-full py-3 px-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl transition-all duration-300 relative overflow-hidden group flex items-center justify-center gap-2"
                 >
-                  <ArrowLeft className="w-5 h-5" />
+                  <ArrowLeft className="w-5 h-5 text-primary-foreground" />
                   <span className="relative z-10">Back to Login</span>
                   <div className="absolute inset-0 bg-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </motion.button>
@@ -205,7 +205,7 @@ export function ForgotPasswordCard() {
                 Email Address
               </Label>
               <div className="relative">
-                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-primary">
                   <Mail className="w-5 h-5" />
                 </div>
                 <motion.div
@@ -276,7 +276,7 @@ export function ForgotPasswordCard() {
               href="/"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 inline-flex items-center gap-1"
             >
-              <ArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="w-4 h-4 text-primary" />
               Back to Login
             </Link>
           </motion.div>

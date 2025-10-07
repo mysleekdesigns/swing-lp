@@ -25,41 +25,39 @@ export function BrandStorySection() {
             {/* Heading */}
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
               <span className="text-black">
-                A New Era
+                Alternative Lifestyle Dating Community for the Adventurous
               </span>
-              <br />
-              <span className="text-foreground">of Connection</span>
             </h2>
 
             {/* Story Content - more concise */}
             <div className="space-y-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
               <p className="text-foreground/90">
-                Formerly known as <span className="font-semibold text-primary">SLS.com</span> and <span className="font-semibold text-primary">Swinglifestyle.com</span>, we&apos;ve acquired the Swing.com domain after over two decades of serving our community. This marks the <span className="font-semibold text-accent">dawn of a new era</span>.
+                You have known and trusted <span className="font-semibold text-primary">SLS.com</span> and <span className="font-semibold text-primary">Swinglifestyle.com</span> as your havens, where desires found their home and thrilling possibilities unfolded. Our journey saw us claim <span className="font-semibold text-primary">SLS.com</span>, a strategic move to provide a more direct whisper to the platform.
               </p>
 
               <p>
-                We&apos;re creating an <span className="font-semibold text-accent">intuitive and accessible online sanctuary</span> — an Alternative Lifestyle Dating Community for the Adventurous. Experience a <span className="font-semibold text-primary">bold transformation</span> and a <span className="font-semibold text-primary">fresh, unforgettable online experience</span>.
+                Now, we proudly announce the culmination of a long-held fantasy: the acquisition of the <span className="font-semibold text-primary">Swing.com</span> domain. Realized after over two decades of passionate pursuit, <span className="font-semibold text-primary">Swing.com</span> embodies the ultimate expression of who we are. It is a name that resonates with pure desire - simple, memorable, and powerful. This transition is our promise to craft your most intuitive and accessible online sanctuary yet.
               </p>
 
               <p>
-                A new platform designed to ignite connections, fulfill fantasies, and celebrate the lifestyle in a safe, welcoming space.
+                This is beyond a simple address change; it is the dawn of a new era, with <span className="font-semibold text-primary">Swing.com</span> which is the best swingers website boldly stepping forward as the definitive face of pleasure. Prepare for a rush of tantalizing new possibilities and significant advancements that will redefine your online lifestyle journey.
               </p>
             </div>
 
             {/* Stats Grid - simplified */}
             <div className="grid grid-cols-3 gap-6">
-              <div className="rounded-xl border border-primary/40 bg-primary/10 p-6">
+              <div className="rounded-xl border border-primary/40 bg-white p-6 text-center">
                 <div className="text-3xl font-bold text-primary">25+</div>
                 <div className="text-sm text-muted-foreground">Years</div>
               </div>
 
-              <div className="rounded-xl border border-accent/40 bg-accent/10 p-6">
-                <div className="text-3xl font-bold text-accent">#1</div>
+              <div className="rounded-xl border border-accent/40 bg-white p-6 text-center">
+                <div className="text-3xl font-bold text-primary">#1</div>
                 <div className="text-sm text-muted-foreground">Worldwide</div>
               </div>
 
-              <div className="rounded-xl border border-secondary/40 bg-secondary/10 p-6">
-                <div className="text-3xl font-bold text-secondary">∞</div>
+              <div className="rounded-xl border border-secondary/40 bg-white p-6 text-center">
+                <div className="text-3xl font-bold text-primary">∞</div>
                 <div className="text-sm text-muted-foreground">Possibilities</div>
               </div>
             </div>

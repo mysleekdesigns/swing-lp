@@ -44,29 +44,20 @@ export function HeroSection() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-base sm:text-lg text-muted-foreground max-w-lg"
             >
-              Swinglifestyle.com has served members for nearly 25 years. Now transitioning to Swing.com — the largest swingers website — to ignite connections and fulfill fantasies.
+              For nearly 25 years,{' '}
+              <a href="https://swinglifestyle.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors">
+                Swinglifestyle.com
+              </a>{' '}
+              has been serving our members and we are proud to be the largest swingers website. We ignite connections and fulfill fantasies. Now, brace yourselves for a bold transformation as we unite under one electrifying destination:{' '}
+              <a href="https://swing.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors">
+                Swing.com
+              </a>
+              . This is more than an evolution; it is a moment of exquisite anticipation, unveiling a fresh, unforgettable online experience designed to heighten every encounter.{' '}
+              <a href="https://swing.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-colors">
+                Swing.com
+              </a>{' '}
+              is the best swingers website.
             </motion.p>
-
-            {/* Trust badges - cleaner */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex items-center justify-center lg:justify-start gap-6 text-sm text-muted-foreground"
-            >
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-primary" />
-                <span>Secure & Private</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-accent" />
-                <span>25+ Years</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-secondary" />
-                <span>Verified Members</span>
-              </div>
-            </motion.div>
           </div>
 
           {/* Right Column - Login Form */}
