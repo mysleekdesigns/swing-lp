@@ -25,7 +25,7 @@ const Footer = () => {
       variants={footerVariants}
       className="relative z-10"
     >
-      <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-24 py-8 md:py-10 lg:py-12 xl:py-16 2xl:py-20 text-center">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-24 py-4 sm:py-6 md:py-8 lg:py-12 xl:py-16 2xl:py-20 text-center">
         {/* Legal Disclaimers */}
         <div className="space-y-4 mb-6">
           <p className="text-muted-foreground text-base leading-relaxed">

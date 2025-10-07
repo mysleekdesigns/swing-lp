@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 export default function CTASection() {
   return (
-    <section className="relative py-8 md:py-10 lg:py-16 xl:py-20 2xl:py-24 overflow-hidden">
+    <section className="relative py-4 sm:py-6 md:py-8 lg:py-12 xl:py-16 2xl:py-20 overflow-hidden">
       {/* Content Container */}
       <div className="relative mx-auto max-w-[1600px] px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <div className="grid gap-16 md:gap-20 lg:grid-cols-2 lg:gap-24 xl:gap-32 2xl:gap-40">
@@ -37,7 +37,7 @@ export default function CTASection() {
               {/* Primary CTA */}
               <Link href="/signup">
                 <motion.button
-                  className="px-8 py-4 rounded-full text-lg font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-all"
+                  className="px-6 py-3 rounded-full text-base font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-all"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -50,7 +50,7 @@ export default function CTASection() {
                 onClick={() => {
                   document.getElementById('brand-story')?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="px-8 py-4 rounded-full text-lg font-semibold text-foreground border-2 border-border hover:border-primary/50 transition-colors cursor-pointer"
+                className="bg-white px-6 py-3 rounded-full text-base font-semibold text-foreground border-2 border-border hover:border-primary/50 transition-colors cursor-pointer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export function BrandStorySection() {
   return (
-    <section id="brand-story" className="relative overflow-hidden py-8 md:py-10 lg:py-16 xl:py-20 2xl:py-24">
+    <section id="brand-story" className="relative overflow-hidden py-4 sm:py-6 md:py-8 lg:py-12 xl:py-16 2xl:py-20">
       {/* Content Container */}
       <div className="relative mx-auto max-w-[1600px] px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <div className="grid gap-16 md:gap-20 lg:grid-cols-2 lg:gap-24 xl:gap-32 2xl:gap-40">
