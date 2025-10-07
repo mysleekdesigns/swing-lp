@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <Starfield />
-      <main className="relative min-h-screen z-10">
+      <main className="relative min-h-screen z-10 pt-16 md:pt-20">
         <HeroSection />
         <StatsSection />
         <BrandStorySection />
