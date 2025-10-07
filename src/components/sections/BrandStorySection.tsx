@@ -16,12 +16,6 @@ export function BrandStorySection() {
             transition={{ duration: 0.5 }}
             className="flex flex-col justify-center space-y-8"
           >
-            {/* Section Badge */}
-            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-2">
-              <div className="h-2 w-2 rounded-full bg-primary" />
-              <span className="text-sm font-medium text-primary">Our Story</span>
-            </div>
-
             {/* Heading */}
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
               <span className="text-black">

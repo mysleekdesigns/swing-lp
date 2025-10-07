@@ -20,7 +20,7 @@ export default function CTASection() {
           >
             {/* Heading */}
             <div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-6">
                 Ready to Explore Your{' '}
                 <span className="text-black">
                   Desires?
