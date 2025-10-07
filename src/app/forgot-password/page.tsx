@@ -19,13 +19,13 @@ export default function ForgotPasswordPage() {
             <div className="mx-auto max-w-[1600px] px-6 py-12 md:px-12 md:py-14 lg:px-16 lg:py-16 xl:px-20 xl:py-12 2xl:px-24 2xl:py-16">
               <div className="grid md:grid-cols-2 gap-6 md:gap-8 lg:gap-12 xl:gap-16 items-center">
                 {/* Left Column - Brand Messaging */}
-                <div className="text-left space-y-6 lg:space-y-7 xl:space-y-8 md:pr-8 lg:pr-12">
+                <div className="text-center lg:text-left space-y-6 lg:space-y-7 xl:space-y-8 md:pr-8 lg:pr-12">
                 {/* Logo */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5 }}
-                  className="flex justify-start"
+                  className="flex justify-center lg:justify-start"
                 >
                   <Link href="/">
                     <SwingLogo className="w-36 h-auto sm:w-44" />
@@ -49,7 +49,7 @@ export default function ForgotPasswordPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="text-base sm:text-lg text-muted-foreground max-w-lg"
+                  className="text-base sm:text-lg text-muted-foreground max-w-none lg:max-w-lg mx-auto lg:mx-0"
                 >
                   Forgot your password? No problem. We&apos;ll help you get back to exploring your desires in just a few clicks.
                 </motion.p>
@@ -59,7 +59,7 @@ export default function ForgotPasswordPage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
-                  className="flex items-center justify-start gap-6 text-sm text-muted-foreground"
+                  className="flex items-center justify-center lg:justify-start gap-6 text-sm text-muted-foreground"
                 >
                   <div className="flex items-center gap-2">
                     <div className="h-2 w-2 rounded-full bg-primary" />

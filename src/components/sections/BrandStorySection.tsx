@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export function BrandStorySection() {
   return (
-    <section id="brand-story" className="relative overflow-hidden py-12 md:py-14 lg:py-16 xl:py-12 2xl:py-16">
+    <section id="brand-story" className="relative overflow-hidden py-8 md:py-10 lg:py-16 xl:py-20 2xl:py-24">
       {/* Content Container */}
       <div className="relative mx-auto max-w-[1600px] px-6 md:px-12 lg:px-16 xl:px-20 2xl:px-24">
         <div className="grid gap-16 md:gap-20 lg:grid-cols-2 lg:gap-24 xl:gap-32 2xl:gap-40">
@@ -25,7 +25,7 @@ export function BrandStorySection() {
 
             {/* Story Content - more concise */}
             <div className="space-y-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
-              <p className="text-foreground/90">
+              <p>
                 You have known and trusted <a href="https://sls.com" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:text-primary/80 transition-colors">SLS.com</a> and <a href="https://swinglifestyle.com" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:text-primary/80 transition-colors">Swinglifestyle.com</a> as your havens, where desires found their home and thrilling possibilities unfolded. Our journey saw us claim <a href="https://sls.com" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:text-primary/80 transition-colors">SLS.com</a>, a strategic move to provide a more direct whisper to the platform.
               </p>
 

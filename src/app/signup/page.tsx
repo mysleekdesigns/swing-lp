@@ -48,7 +48,7 @@ export default function SignupPage() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="text-base sm:text-lg text-muted-foreground max-w-lg"
+                  className="text-base sm:text-lg text-muted-foreground max-w-none lg:max-w-lg mx-auto lg:mx-0"
                 >
                   Join the world&apos;s largest alternative lifestyle dating community.
                   Create connections, fulfill fantasies, and celebrate the lifestyle in a safe, welcoming space.
