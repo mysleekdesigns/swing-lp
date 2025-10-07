@@ -4,19 +4,22 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { Menu, X, Palette } from 'lucide-react';
-import { branches, getCurrentBranch } from '@/config/branches';
+import { getBranches, getCurrentBranch } from '@/config/branches';
 import { Button } from '@/components/ui/button';
 import { SwingLogo } from '@/components/ui/SwingLogo';
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentBranch, setCurrentBranch] = useState('main');
+  const [branches, setBranches] = useState<Array<{ id: string; name: string; description: string; url: string }>>([]);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     if (typeof window !== 'undefined') {
-      setCurrentBranch(getCurrentBranch(window.location.hostname));
+      const hostname = window.location.hostname;
+      setCurrentBranch(getCurrentBranch(hostname));
+      setBranches(getBranches(hostname));
     }
   }, []);
 
