@@ -58,10 +58,7 @@ export function ForgotPasswordCard() {
         className="w-full max-w-lg"
       >
         {/* Success State Card */}
-        <div className="relative overflow-hidden rounded-3xl bg-card border border-border shadow-2xl">
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/10" />
-
+        <div className="relative overflow-hidden rounded-3xl bg-card border border-border">
           {/* Card Content */}
           <div className="relative p-6 sm:p-8 md:p-10">
             {/* Success Icon */}
@@ -109,7 +106,7 @@ export function ForgotPasswordCard() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="bg-muted/50 rounded-xl p-4 mb-6"
+              className="bg-card rounded-xl p-4 mb-6"
             >
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Click the link in the email to reset your password. If you don&apos;t see the email, check your spam folder.
@@ -127,7 +124,7 @@ export function ForgotPasswordCard() {
                   type="button"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full py-3 px-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl shadow-lg shadow-primary/30 transition-all duration-300 relative overflow-hidden group flex items-center justify-center gap-2"
+                  className="w-full py-3 px-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl transition-all duration-300 relative overflow-hidden group flex items-center justify-center gap-2"
                 >
                   <ArrowLeft className="w-5 h-5" />
                   <span className="relative z-10">Back to Login</span>
@@ -157,10 +154,6 @@ export function ForgotPasswordCard() {
               </p>
             </motion.div>
           </div>
-
-          {/* Decorative Elements */}
-          <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl" />
-          <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-accent/20 rounded-full blur-3xl" />
         </div>
       </motion.div>
     )
@@ -177,10 +170,7 @@ export function ForgotPasswordCard() {
       className="w-full max-w-lg"
     >
       {/* Glass Morphism Card */}
-      <div className="relative overflow-hidden rounded-3xl bg-card border border-border shadow-2xl">
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/10" />
-
+      <div className="relative overflow-hidden rounded-3xl bg-card border border-border">
         {/* Card Content */}
         <div className="relative p-6 sm:p-8 md:p-10">
           {/* Header */}
@@ -237,7 +227,7 @@ export function ForgotPasswordCard() {
                     }}
                     onFocus={() => setFocusedField("email")}
                     onBlur={() => setFocusedField(null)}
-                    className={`pl-11 bg-background border-input text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-ring transition-all duration-300 ${
+                    className={`pl-11 bg-white border-input text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-ring transition-all duration-300 ${
                       errors.email ? "border-destructive" : ""
                     }`}
                   />
@@ -265,7 +255,7 @@ export function ForgotPasswordCard() {
                 disabled={isSubmitting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full py-3 px-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl shadow-lg shadow-primary/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
+                className="w-full py-3 px-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
               >
                 <span className="relative z-10">
                   {isSubmitting ? "Sending Reset Link..." : "Send Reset Link"}
@@ -291,10 +281,6 @@ export function ForgotPasswordCard() {
             </Link>
           </motion.div>
         </div>
-
-        {/* Decorative Elements */}
-        <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-accent/20 rounded-full blur-3xl" />
       </div>
     </motion.div>
   )

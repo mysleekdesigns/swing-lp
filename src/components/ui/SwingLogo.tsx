@@ -7,7 +7,7 @@ interface SwingLogoProps {
 export function SwingLogo({ className = "" }: SwingLogoProps) {
   return (
     <Image
-      src="/logo-swing.png"
+      src="/logo-swing.svg"
       alt="Swing Logo"
       width={200}
       height={60}

@@ -37,7 +37,7 @@ export default function CTASection() {
               {/* Primary CTA */}
               <Link href="/signup">
                 <motion.button
-                  className="px-8 py-4 rounded-full text-lg font-semibold text-primary-foreground bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all"
+                  className="px-8 py-4 rounded-full text-lg font-semibold text-primary-foreground bg-primary hover:bg-primary/90 transition-all"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >

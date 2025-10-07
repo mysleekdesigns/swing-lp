@@ -28,7 +28,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.className} bg-gradient-to-br from-primary/10 via-background to-accent/10`}>
+      <body className={`${inter.className} bg-background`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

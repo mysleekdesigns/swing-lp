@@ -128,7 +128,7 @@ export default function ForgotPasswordPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="rounded-xl border border-primary/40 bg-primary/10 p-6 shadow-sm"
+                className="rounded-xl border border-primary/40 bg-primary/10 p-6"
               >
                 <div className="text-3xl mb-3">🔐</div>
                 <div className="text-sm font-semibold text-foreground mb-2">Check Your Spam</div>
@@ -142,7 +142,7 @@ export default function ForgotPasswordPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="rounded-xl border border-accent/40 bg-accent/10 p-6 shadow-sm"
+                className="rounded-xl border border-accent/40 bg-accent/10 p-6"
               >
                 <div className="text-3xl mb-3">📧</div>
                 <div className="text-sm font-semibold text-foreground mb-2">Verify Email Address</div>
@@ -156,7 +156,7 @@ export default function ForgotPasswordPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="rounded-xl border border-secondary/40 bg-secondary/10 p-6 shadow-sm"
+                className="rounded-xl border border-secondary/40 bg-secondary/10 p-6"
               >
                 <div className="text-3xl mb-3">💬</div>
                 <div className="text-sm font-semibold text-foreground mb-2">Contact Support</div>

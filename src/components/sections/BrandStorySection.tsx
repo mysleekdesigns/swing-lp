@@ -48,17 +48,17 @@ export function BrandStorySection() {
 
             {/* Stats Grid - simplified */}
             <div className="grid grid-cols-3 gap-6">
-              <div className="rounded-xl border border-primary/40 bg-primary/10 p-6 shadow-sm">
+              <div className="rounded-xl border border-primary/40 bg-primary/10 p-6">
                 <div className="text-3xl font-bold text-primary">25+</div>
                 <div className="text-sm text-muted-foreground">Years</div>
               </div>
 
-              <div className="rounded-xl border border-accent/40 bg-accent/10 p-6 shadow-sm">
+              <div className="rounded-xl border border-accent/40 bg-accent/10 p-6">
                 <div className="text-3xl font-bold text-accent">#1</div>
                 <div className="text-sm text-muted-foreground">Worldwide</div>
               </div>
 
-              <div className="rounded-xl border border-secondary/40 bg-secondary/10 p-6 shadow-sm">
+              <div className="rounded-xl border border-secondary/40 bg-secondary/10 p-6">
                 <div className="text-3xl font-bold text-secondary">∞</div>
                 <div className="text-sm text-muted-foreground">Possibilities</div>
               </div>
@@ -75,7 +75,7 @@ export function BrandStorySection() {
           >
             {/* Clean glass card */}
             <div className="relative w-full max-w-lg">
-              <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm p-8 shadow-lg">
+              <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-card backdrop-blur-sm p-8">
                 {/* Content */}
                 <div className="space-y-6">
                   {/* Icon */}

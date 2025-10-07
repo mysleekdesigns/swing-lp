@@ -92,10 +92,7 @@ export function SignupCard() {
       className="w-full max-w-lg"
     >
       {/* Glass Morphism Card */}
-      <div className="relative overflow-hidden rounded-3xl bg-card border border-border shadow-2xl">
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/10" />
-
+      <div className="relative overflow-hidden rounded-3xl bg-card border border-border">
         {/* Card Content */}
         <div className="relative p-6 sm:p-8 md:p-10">
           {/* Header */}
@@ -152,7 +149,7 @@ export function SignupCard() {
                     }}
                     onFocus={() => setFocusedField("username")}
                     onBlur={() => setFocusedField(null)}
-                    className={`pl-11 bg-background border-input text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-ring transition-all duration-300 ${
+                    className={`pl-11 bg-white border-input text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-ring transition-all duration-300 ${
                       errors.username ? "border-destructive" : ""
                     }`}
                   />
@@ -201,7 +198,7 @@ export function SignupCard() {
                     }}
                     onFocus={() => setFocusedField("email")}
                     onBlur={() => setFocusedField(null)}
-                    className={`pl-11 bg-background border-input text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-ring transition-all duration-300 ${
+                    className={`pl-11 bg-white border-input text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-ring transition-all duration-300 ${
                       errors.email ? "border-destructive" : ""
                     }`}
                   />
@@ -250,7 +247,7 @@ export function SignupCard() {
                     }}
                     onFocus={() => setFocusedField("password")}
                     onBlur={() => setFocusedField(null)}
-                    className={`pl-11 bg-background border-input text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-ring transition-all duration-300 ${
+                    className={`pl-11 bg-white border-input text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-ring transition-all duration-300 ${
                       errors.password ? "border-destructive" : ""
                     }`}
                   />
@@ -299,7 +296,7 @@ export function SignupCard() {
                     }}
                     onFocus={() => setFocusedField("confirmPassword")}
                     onBlur={() => setFocusedField(null)}
-                    className={`pl-11 bg-background border-input text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-ring transition-all duration-300 ${
+                    className={`pl-11 bg-white border-input text-foreground placeholder:text-muted-foreground focus:border-primary focus:ring-ring transition-all duration-300 ${
                       errors.confirmPassword ? "border-destructive" : ""
                     }`}
                   />
@@ -408,7 +405,7 @@ export function SignupCard() {
                 disabled={isSubmitting}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full py-3 px-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl shadow-lg shadow-primary/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
+                className="w-full py-3 px-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
               >
                 <span className="relative z-10">
                   {isSubmitting ? "Creating Account..." : "Create Your Free Account"}
@@ -436,10 +433,6 @@ export function SignupCard() {
             </p>
           </motion.div>
         </div>
-
-        {/* Decorative Elements */}
-        <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-accent/20 rounded-full blur-3xl" />
       </div>
     </motion.div>
   )
