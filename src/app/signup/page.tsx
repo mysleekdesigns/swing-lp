@@ -132,7 +132,7 @@ export default function SignupPage() {
                 <div className="text-3xl font-bold text-primary mb-2">25+</div>
                 <div className="text-sm font-semibold text-foreground mb-2">Years of Experience</div>
                 <div className="text-sm text-muted-foreground">
-                  Trusted by millions since 1999. Formerly SLS.com and Swinglifestyle.com
+                  Trusted by millions since 1999. Formerly <a href="https://sls.com" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:text-primary/80 transition-colors">SLS.com</a> and <a href="https://swinglifestyle.com" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:text-primary/80 transition-colors">Swinglifestyle.com</a>
                 </div>
               </motion.div>
 
